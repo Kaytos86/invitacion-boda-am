@@ -228,7 +228,7 @@ window.setTheme = function(themeName /* "claro" | "profundo" */) {
       <div class="lb__frame">
         <button class="lb__close" aria-label="Cerrar (Esc)">✕</button>
         <button class="lb__prev" aria-label="Anterior">‹</button>
-        <img class="lb__img" alt="">
+        <img class="lb__img" alt="" tabindex="-1">
         <button class="lb__next" aria-label="Siguiente">›</button>
       </div>`;
     document.body.appendChild(dlg);
@@ -374,18 +374,16 @@ window.setTheme = function(themeName /* "claro" | "profundo" */) {
   btn?.addEventListener('click', loadMap);
 })();
 
-// Inicializadores diferidos para no bloquear render
+// JS – Inicializaciones en idle (AOS/Swiper)
 (function () {
-  const runIdle = (fn) => (window.requestIdleCallback ? requestIdleCallback(fn, { timeout: 1000 }) : setTimeout(fn, 150));
-
-  runIdle(() => {
-    // AOS
+  const idle = fn => (window.requestIdleCallback ? requestIdleCallback(fn, { timeout: 1000 }) : setTimeout(fn, 150));
+  idle(() => {
     if (window.AOS && document.querySelector('[data-aos]')) {
-      AOS.init({ duration: 550, once: true, disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches });
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      AOS.init({ duration: 550, once: true, disable: reduce });
     }
-    // Swiper (si tienes carrusel)
     if (typeof Swiper !== 'undefined' && document.querySelector('.gallery-swiper')) {
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
       const cfg = {
         loop: true, effect: 'slide', grabCursor: true,
         spaceBetween: 24, slidesPerView: 1, centeredSlides: true,
@@ -397,5 +395,139 @@ window.setTheme = function(themeName /* "claro" | "profundo" */) {
       if (reduce) { delete cfg.autoplay; cfg.speed = 0; }
       new Swiper('.gallery-swiper', cfg);
     }
+  });
+})();
+
+// === Accesibilidad: lightbox, player y seekbar ===
+(function(){
+  // --- Lightbox: foco a la imagen al abrir y restaurar al cerrar (JS-only) ---
+  const dlg = document.getElementById('lightbox');
+  const img = dlg?.querySelector('.lb__img');
+  if (dlg && img) {
+    // Asegura que la imagen sea “focusable”
+    if (!img.hasAttribute('tabindex')) img.setAttribute('tabindex', '-1');
+
+    let lastActive = null;
+    const focusImage = () => {
+      lastActive = document.activeElement;
+      // da un tick para asegurar que open=true ya aplicó
+      setTimeout(() => { try { img.focus({ preventScroll: true }); } catch(_){} }, 0);
+    };
+    const restoreFocus = () => {
+      try { lastActive && lastActive.focus({ preventScroll: true }); } catch(_){}
+    };
+
+    // Monkey-patch show/showModal para invocar focus
+    ['show','showModal'].forEach(fn => {
+      if (typeof dlg[fn] === 'function') {
+        const orig = dlg[fn].bind(dlg);
+        dlg[fn] = function(...args){
+          const ret = orig(...args);
+          focusImage();
+          return ret;
+        };
+      }
+    });
+    // Fallback: observa el atributo 'open'
+    new MutationObserver(muts => {
+      if (dlg.open) focusImage();
+    }).observe(dlg, { attributes: true, attributeFilter: ['open'] });
+
+    dlg.addEventListener('close', restoreFocus);
+    dlg.addEventListener('cancel', restoreFocus); // Esc en modo modal
+  }
+
+  // --- Player: sync aria-pressed/label y seekbar con aria-valuetext ---
+  const audio = document.getElementById('audio-boda');
+  const btnPP = document.getElementById('newPlayPauseBtn');
+  const seek  = document.getElementById('seekBar');
+
+  if (audio && btnPP) {
+    const syncBtn = () => {
+      const playing = !audio.paused && !audio.ended;
+      btnPP.setAttribute('aria-pressed', playing ? 'true' : 'false');
+      btnPP.setAttribute('aria-label', playing ? 'Pausar música' : 'Reproducir música');
+    };
+    audio.addEventListener('play',  syncBtn);
+    audio.addEventListener('pause', syncBtn);
+    audio.addEventListener('ended', syncBtn);
+    syncBtn();
+  }
+
+  if (audio && seek) {
+    const toMMSS = (s) => {
+      const m = Math.floor(s / 60), r = Math.max(0, Math.floor(s % 60));
+      return `${m}:${String(r).padStart(2,'0')}`;
+    };
+    const updateAria = () => {
+      if (!isFinite(audio.duration) || audio.duration <= 0) return;
+      const val = Number(seek.value) || 0;
+      seek.setAttribute('aria-valuemin', '0');
+      seek.setAttribute('aria-valuemax', String(Math.floor(audio.duration)));
+      seek.setAttribute('aria-valuenow', String(Math.floor(val)));
+      seek.setAttribute('aria-valuetext', `${toMMSS(val)} de ${toMMSS(audio.duration)}`);
+    };
+    audio.addEventListener('timeupdate', updateAria);
+    audio.addEventListener('loadedmetadata', updateAria);
+    seek.addEventListener('input', updateAria);
+    updateAria();
+  }
+})();
+
+/* === Lottie: ornamentos “breathe” en hero (opcional, con fallback) === */
+(function initLottieOrnaments(){
+  const els = document.querySelectorAll('.hero__lottie');
+  if (!els.length) return;
+  // Carga solo si la librería está disponible:
+  if (!window.lottie) return;
+  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  els.forEach(el => {
+    const path = el.getAttribute('data-lottie');
+    try {
+      const anim = lottie.loadAnimation({
+        container: el,
+        renderer: 'svg',
+        loop: true,
+        autoplay: !mq.matches,
+        path: path,                 // coloca tu JSON en /img/ornament-breathe.json
+        rendererSettings: { progressiveLoad: true }
+      });
+      // Guarda referencia para pausar/reanudar según preferencias de movimiento
+      el._lottie = anim;
+    } catch (e) { console.warn('Lottie init error:', e); }
+  });
+  // Responder a cambios en prefers-reduced-motion
+  try {
+    mq.addEventListener('change', (e) => {
+      document.querySelectorAll('.hero__lottie').forEach(el => {
+        const a = el._lottie; if (!a) return;
+        if (e.matches) a.pause(); else a.play();
+      });
+    });
+  } catch(_) { /* Safari antiguo: sincrónico no crítico */ }
+})();
+
+// Hint de rendimiento: marca como lazy/async todas las imágenes no críticas (excepto la hero)
+(function markNonCriticalImages(){
+  const heroImg = document.querySelector('.hero__parallax-bg img');
+  document.querySelectorAll('img').forEach(img => {
+    if (img === heroImg) return;            // no tocar la hero (ya tiene fetchpriority/preload)
+    if (!img.hasAttribute('loading'))  img.setAttribute('loading','lazy');
+    if (!img.hasAttribute('decoding')) img.setAttribute('decoding','async');
+  });
+})();
+
+/* Desactivar enlaces al itinerario y redirigir suavemente a "Cómo llegar" (si existe) */
+(function disableItineraryLinks(){
+  const links = document.querySelectorAll('a[href="#itinerario"]');
+  if (!links.length) return;
+  links.forEach(a => {
+    a.setAttribute('aria-disabled','true');
+    a.setAttribute('tabindex','-1');
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const fallback = document.querySelector('#como-llegar, #ubicaciones, [data-section="mapas"], #mapa');
+      if (fallback) fallback.scrollIntoView({behavior:'smooth', block:'start'});
+    }, { passive: false }); // passive: false es importante para preventDefault
   });
 })();
