@@ -1,62 +1,47 @@
+<!DOCTYPE html>
 <html lang="es-MX" data-theme="claro">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Alejandro & Monserrat | Invitación de Boda</title>
   
-  <!-- SEO básico -->
   <meta name="description" content="Acompáñanos a celebrar nuestra boda. Toda la información del evento: fecha, ubicación, itinerario y confirmación de asistencia.">
   <link rel="canonical" href="https://tusitio.com/">
-
-  <!-- Open Graph -->
   <meta property="og:site_name" content="Boda A & M">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Boda A & M — Nuestra boda">
   <meta property="og:description" content="Fecha, ubicaciones, itinerario y RSVP. ¡Te esperamos!">
   <meta property="og:url" content="https://tusitio.com/">
   <meta property="og:image" content="https://tusitio.com/img/portada-1080.png">
-  <meta property="og:image:width" content="1080">
-  <meta property="og:image:height" content="608">
-
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Boda A & M — Nuestra boda">
-  <meta name="twitter:description" content="Fecha, ubicaciones, itinerario y RSVP. ¡Te esperamos!">
-
-  <!-- Color del navegador (usa tu dorado suave) -->
   <meta name="theme-color" content="#C9A24F">
 
-  <!-- Rendimiento: conexiones tempranas -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-
-  <!-- Preload de la hero para mejorar LCP (ajusta rutas si cambian) -->
-  <link rel="preload" as="image"
-        href="img/portada-1080.png"
-        imagesrcset="img/portada-768.png 768w, img/portada-800.png 800w, img/portada-1080.png 1080w"
-        imagesizes="100vw">
+  <link rel="preload" as="image" href="img/portada-1080.png" imagesrcset="img/portada-768.png 768w, img/portada-800.png 800w, img/portada-1080.png 1080w" imagesizes="100vw">
   
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
   <link rel="stylesheet" href="css/style.css">
 
   <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f490.svg">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 </head>
 <body>
- <a class="skip-link" href="#main">Saltar al contenido</a>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
 
- <div class="site-bg site-bg--terracotta" aria-hidden="true"></div>
- 
+  <div class="site-bg site-bg--terracotta" aria-hidden="true"></div>
+  
   <div class="top-fixed-banner">
     <img src="img/logo_100.png" alt="Logo Boda Alejandro & Monserrat"> 
   </div>
   
   <header class="hero" id="hero">
-    <!-- Monograma superior: decorativo, no interfiere con JS -->
-    <div class="hero__badge" aria-hidden="true"><span>A &amp; M</span></div>
+    <div class="hero__badge" aria-hidden="true"><span>A & M</span></div>
     <div class="hero__parallax-bg">
       <img
         src="img/portada-800.png"
@@ -67,20 +52,16 @@
         decoding="async" fetchpriority="high"
         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
     </div>
-    <div class="hero__decoration hero__decoration--top-left">
-      <svg viewBox="0 0 130 130" width="130" height="130" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><g opacity="0.65"><ellipse cx="40" cy="35" rx="22" ry="8" fill="#91a88b" opacity="0.35"/><ellipse cx="16" cy="52" rx="8" ry="21" fill="#bfa14e" opacity="0.25"/><ellipse cx="64" cy="22" rx="11" ry="6" fill="#bfa14e" opacity="0.55"/><ellipse cx="27" cy="16" rx="8" ry="8" fill="#c8a764" opacity="0.7"/><ellipse cx="115" cy="25" rx="8" ry="16" fill="#6c7a59" opacity="0.15"/></g></svg>
+    <div class="hero__decoration hero__decoration--top-left" aria-hidden="true">
+      <svg viewBox="0 0 130 130"><g opacity="0.65"><ellipse cx="40" cy="35" rx="22" ry="8" fill="#91a88b" opacity="0.35"/><ellipse cx="16" cy="52" rx="8" ry="21" fill="#bfa14e" opacity="0.25"/><ellipse cx="64" cy="22" rx="11" ry="6" fill="#bfa14e" opacity="0.55"/><ellipse cx="27" cy="16" rx="8" ry="8" fill="#c8a764" opacity="0.7"/><ellipse cx="115" cy="25" rx="8" ry="16" fill="#6c7a59" opacity="0.15"/></g></svg>
     </div>
-    <div class="hero__decoration hero__decoration--bottom-right">
-      <svg viewBox="0 0 130 130" width="130" height="130" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><g opacity="0.65"><ellipse cx="90" cy="100" rx="24" ry="10" fill="#91a88b" opacity="0.35"/><ellipse cx="112" cy="86" rx="8" ry="21" fill="#bfa14e" opacity="0.28"/><ellipse cx="74" cy="114" rx="11" ry="6" fill="#bfa14e" opacity="0.4"/><ellipse cx="103" cy="120" rx="9" ry="7" fill="#c8a764" opacity="0.7"/><ellipse cx="14" cy="105" rx="7" ry="17" fill="#6c7a59" opacity="0.16"/></g></svg>
+    <div class="hero__decoration hero__decoration--bottom-right" aria-hidden="true">
+      <svg viewBox="0 0 130 130"><g opacity="0.65"><ellipse cx="90" cy="100" rx="24" ry="10" fill="#91a88b" opacity="0.35"/><ellipse cx="112" cy="86" rx="8" ry="21" fill="#bfa14e" opacity="0.28"/><ellipse cx="74" cy="114" rx="11" ry="6" fill="#bfa14e" opacity="0.4"/><ellipse cx="103" cy="120" rx="9" ry="7" fill="#c8a764" opacity="0.7"/><ellipse cx="14" cy="105" rx="7" ry="17" fill="#6c7a59" opacity="0.16"/></g></svg>
     </div>
     
-    <!-- Contenedores Lottie (decorativos) -->
-    <div class="hero__lottie hero__lottie--left" data-lottie="img/ornament-breathe.json" aria-hidden="true"></div>
-    <div class="hero__lottie hero__lottie--right" data-lottie="img/ornament-breathe.json" aria-hidden="true"></div>
-
     <div class="hero__content" data-aos="fade-up">
       <div class="hero__message">Nuestra Boda</div>
-      <h1 class="hero__names hero__title">ALEJANDRO &amp; MONSERRAT</h1>
+      <h1 class="hero__names hero__title">ALEJANDRO & MONSERRAT</h1>
       <p class="hero__date">22 de Noviembre del 2025</p>
       <a href="#rsvp" class="hero__cta-btn">Confirma tu asistencia</a>
     </div>
@@ -103,7 +84,7 @@
           <svg class="icon-pause" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="display:none;"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 011-1h2a1 1 0 110 2H8a1 1 0 01-1-1zm5 0a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
         </button>
         <div class="progress-bar-wrapper">
-          <input type="range" id="seekBar" value="0" step="0.1" aria-label="Barra de progreso de la canción" aria-valuemin="0" aria-valuemax="100" aria-valuetext="0:00">
+          <input type="range" id="seekBar" value="0" step="0.1" aria-label="Barra de progreso de la canción">
         </div>
         <div class="time-display">
           <span id="currentTimeDisplay">0:00</span> / <span id="totalDurationDisplay">0:00</span>
@@ -112,16 +93,14 @@
     </div>
     
     <section class="countdown section-glass" id="countdown" data-aos="fade-up">
-      <h2 class="countdown__title">Faltan</h2>
+      <h2 class="section__title">Faltan</h2>
       <div class="countdown__timer" id="timer"></div>
     </section>
     
     <section class="story section-glass" id="story" data-aos="fade-up">
-      <!-- Título oculto por solicitud; reversible -->
       <h2 class="story__title" hidden aria-hidden="true">Nuestra Historia</h2>
       <div class="story__container">
         <div class="story__img" data-aos="fade-right">
-          <!-- Sube tu foto a /img/ y, de preferencia, nómbrala historia.webp -->
           <img src="img/pagina (10).webp" alt="Nuestra foto en la playa" loading="lazy" decoding="async" width="600" height="600">
         </div>
         <div class="story__text" data-aos="fade-left">
@@ -134,116 +113,223 @@
       </div>
     </section>
     
-    <section class="family section-glass" id="family" data-aos="fade-up">
-      <h2 class="section__title">Con la bendición de Dios y de nuestros padres</h2>
-      <div class="parents grid">
-        <div class="parent-block">
-          <h3 class="parent-label">Padres de la Novia</h3>
-          <p class="parent-names">Roberto Kú Ojeda &amp; Diana Borges Morales</p>
-        </div>
-        <div class="parent-block">
-          <h3 class="parent-label">Padres del Novio</h3>
-          <p class="parent-names">Julio Castillo Espadas &amp; Yolanda Moreno Valdovinos</p>
-        </div>
-      </div>
-      
-      <h2 class="section__title">Y el cariño y apoyo de nuestros padrinos:</h2>
-      <ul class="sponsors">
-        <li><strong>Anillos:</strong> Julio Castillo &amp; Danae Tapia</li>
-        <li><strong>Velación:</strong> Carlos Ayala &amp; Teresa Chale</li>
-        <li><strong>Lazo:</strong> Gabriel Herrera &amp; Donna Rincón</li>
-        <li><strong>Arras:</strong> Manuel Borges &amp; Yazmín Cardeña</li>
-        <li><strong>Ramo:</strong> Reyna Kú</li>
-      </ul>
-    </section>
+<section class="family section-glass" id="family" data-aos="fade-up">
+  <h2 class="section__title">Con la bendición de Dios y de nuestros padres</h2>
+  
+  <div class="parents grid">
+    <div class="parent-block">
+      <h3 class="parent-label">Padres de la Novia</h3>
+      <p class="parent-names">Roberto Kú Ojeda & Diana Borges Morales</p>
+    </div>
+    <div class="parent-block">
+      <h3 class="parent-label">Padres del Novio</h3>
+      <p class="parent-names">Julio Castillo Espadas & Yolanda Moreno Valdovinos</p>
+    </div>
+  </div>
+  
+  <div class="divider"></div>
+
+  <h2 class="section__title">Y el cariño y apoyo de nuestros padrinos:</h2>
+
+<div class="sponsors-grid">
+  <div class="sponsor-item">
+    <img src="img/icons/anillos.svg" alt="Icono de Anillos" class="sponsor-icon">
+    <h4 class="sponsor-role">Anillos</h4>
+    <p class="sponsor-names">Julio Castillo & Danae Tapia</p>
+  </div>
+  <div class="sponsor-item">
+    <i class="fa-solid fa-church"></i>
+    <h4 class="sponsor-role">Velación</h4>
+    <p class="sponsor-names">Carlos Ayala & Teresa Chale</p>
+  </div>
+  <div class="sponsor-item">
+    <i class="fa-solid fa-infinity"></i>
+    <h4 class="sponsor-role">Lazo</h4>
+    <p class="sponsor-names">Gabriel Herrera & Donna Rincón</p>
+  </div>
+  <div class="sponsor-item">
+    <i class="fa-solid fa-coins"></i>
+    <h4 class="sponsor-role">Arras</h4>
+    <p class="sponsor-names">Manuel Borges & Yazmín Cardeña</p>
+  </div>
+  <div class="sponsor-item">
+    <img src="img/icons/ramo.svg" alt="Icono de Ramo" class="sponsor-icon">
+    <h4 class="sponsor-role">Ramo</h4>
+    <p class="sponsor-names">Reyna Kú</p>
+  </div>
+</div>
     
-    <!-- El bloque de itinerario ahora está oculto pero sigue en el DOM -->
-    <section class="itinerary section-glass" id="itinerary" data-aos="fade-up" hidden aria-hidden="true">
-      <h2 class="section__title">Itinerario</h2>
-      <ul class="timeline" role="list" aria-label="Itinerario del evento">
-        <li><time datetime="2025-11-22T20:00-06:00">08:00&nbsp;pm</time> · Ceremonia religiosa</li>
-        <li><time datetime="2025-11-22T21:00-06:00">09:00&nbsp;pm</time> · Recepción</li>
-        <li><time datetime="2025-11-22T21:30-06:00">09:30&nbsp;pm</time> · Entrada de los novios</li>
-        <li><time datetime="2025-11-22T21:45-06:00">09:45&nbsp;pm</time> · Brindis</li>
-        <li><time datetime="2025-11-22T22:30-06:00">10:30&nbsp;pm</time> · Cena</li>
-        <li><time datetime="2025-11-22T23:00-06:00">11:00&nbsp;pm</time> · Baile</li>
-        <li><time datetime="2025-11-23T03:00-06:00">03:00&nbsp;am</time> · Fin de la boda</li>
-      </ul>
-    </section>
-    
-    <section class="gallery section-glass" id="gallery" data-aos="fade-up">
-      <h2 class="gallery__title">Galería</h2>
-      <div class="gallery grid">
-        <a href="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1600&q=80" class="gallery__item" data-lightbox>
-          <img
-            src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80"
-            srcset="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=480&q=80 480w,
-                    https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80 800w,
-                    https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80 1200w"
-            sizes="(max-width: 600px) 48vw, (max-width: 1024px) 30vw, 22vw"
-            width="800" height="533"
-            alt="Recuerdo de Alejandro y Monserrat 1"
-            loading="lazy" decoding="async">
-        </a>
-        <a href="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=1600&q=80" class="gallery__item" data-lightbox>
-          <img
-            src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=800&q=80"
-            srcset="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=480&q=80 480w,
-                    https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=800&q=80 800w,
-                    https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=1200&q=80 1200w"
-            sizes="(max-width: 600px) 48vw, (max-width: 1024px) 30vw, 22vw"
-            width="800" height="1200"
-            alt="Recuerdo de Alejandro y Monserrat 2"
-            loading="lazy" decoding="async">
-        </a>
-        <a href="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1600&q=80" class="gallery__item" data-lightbox>
-          <img
-            src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80"
-            srcset="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=480&q=80 480w,
-                    https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80 800w,
-                    https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80 1200w"
-            sizes="(max-width: 600px) 48vw, (max-width: 1024px) 30vw, 22vw"
-            width="800" height="533"
-            alt="Recuerdo de Alejandro y Monserrat 3"
-            loading="lazy" decoding="async">
-        </a>
-        <a href="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1600&q=80" class="gallery__item" data-lightbox>
-          <img
-            src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80"
-            srcset="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=480&q=80 480w,
-                    https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80 800w,
-                    https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80 1200w"
-            sizes="(max-width: 600px) 48vw, (max-width: 1024px) 30vw, 22vw"
-            width="800" height="533"
-            alt="Recuerdo de Alejandro y Monserrat 4"
-            loading="lazy" decoding="async">
-        </a>
-      </div>
+    <section class="gallery-section section-glass" id="gallery" data-aos="fade-up">
+        <h2 class="section__title">Nuestros Momentos</h2>
+        <div class="swiper gallery-swiper">
+            <div class="swiper-wrapper">
+  <div class="swiper-slide">
+    <a href="img/gallery/1.webp" data-lightbox>
+      <img src="img/gallery/1.webp" alt="Recuerdo de Alejandro y Monserrat 1" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/2.webp" data-lightbox>
+      <img src="img/gallery/2.webp" alt="Recuerdo de Alejandro y Monserrat 2" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/3.webp" data-lightbox>
+      <img src="img/gallery/3.webp" alt="Recuerdo de Alejandro y Monserrat 3" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/4.webp" data-lightbox>
+      <img src="img/gallery/4.webp" alt="Recuerdo de Alejandro y Monserrat 4" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/5.webp" data-lightbox>
+      <img src="img/gallery/5.webp" alt="Recuerdo de Alejandro y Monserrat 5" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/6.webp" data-lightbox>
+      <img src="img/gallery/6.webp" alt="Recuerdo de Alejandro y Monserrat 6" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/7.webp" data-lightbox>
+      <img src="img/gallery/7.webp" alt="Recuerdo de Alejandro y Monserrat 7" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/8.webp" data-lightbox>
+      <img src="img/gallery/8.webp" alt="Recuerdo de Alejandro y Monserrat 8" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/9.webp" data-lightbox>
+      <img src="img/gallery/9.webp" alt="Recuerdo de Alejandro y Monserrat 9" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/10.webp" data-lightbox>
+      <img src="img/gallery/10.webp" alt="Recuerdo de Alejandro y Monserrat 10" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/11.webp" data-lightbox>
+      <img src="img/gallery/11.webp" alt="Recuerdo de Alejandro y Monserrat 11" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/12.webp" data-lightbox>
+      <img src="img/gallery/12.webp" alt="Recuerdo de Alejandro y Monserrat 12" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/13.webp" data-lightbox>
+      <img src="img/gallery/13.webp" alt="Recuerdo de Alejandro y Monserrat 13" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/14.webp" data-lightbox>
+      <img src="img/gallery/14.webp" alt="Recuerdo de Alejandro y Monserrat 14" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/15.webp" data-lightbox>
+      <img src="img/gallery/15.webp" alt="Recuerdo de Alejandro y Monserrat 15" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/16.webp" data-lightbox>
+      <img src="img/gallery/16.webp" alt="Recuerdo de Alejandro y Monserrat 16" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/17.webp" data-lightbox>
+      <img src="img/gallery/17.webp" alt="Recuerdo de Alejandro y Monserrat 17" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/18.webp" data-lightbox>
+      <img src="img/gallery/18.webp" alt="Recuerdo de Alejandro y Monserrat 18" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/19.webp" data-lightbox>
+      <img src="img/gallery/19.webp" alt="Recuerdo de Alejandro y Monserrat 19" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/20.webp" data-lightbox>
+      <img src="img/gallery/20.webp" alt="Recuerdo de Alejandro y Monserrat 20" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/21.webp" data-lightbox>
+      <img src="img/gallery/21.webp" alt="Recuerdo de Alejandro y Monserrat 21" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/22.webp" data-lightbox>
+      <img src="img/gallery/22.webp" alt="Recuerdo de Alejandro y Monserrat 22" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/23.webp" data-lightbox>
+      <img src="img/gallery/23.webp" alt="Recuerdo de Alejandro y Monserrat 23" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/24.webp" data-lightbox>
+      <img src="img/gallery/24.webp" alt="Recuerdo de Alejandro y Monserrat 24" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/25.webp" data-lightbox>
+      <img src="img/gallery/25.webp" alt="Recuerdo de Alejandro y Monserrat 25" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/26.webp" data-lightbox>
+      <img src="img/gallery/26.webp" alt="Recuerdo de Alejandro y Monserrat 26" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/27.webp" data-lightbox>
+      <img src="img/gallery/27.webp" alt="Recuerdo de Alejandro y Monserrat 27" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/28.webp" data-lightbox>
+      <img src="img/gallery/28.webp" alt="Recuerdo de Alejandro y Monserrat 28" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/29.webp" data-lightbox>
+      <img src="img/gallery/29.webp" alt="Recuerdo de Alejandro y Monserrat 29" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/30.webp" data-lightbox>
+      <img src="img/gallery/30.webp" alt="Recuerdo de Alejandro y Monserrat 30" loading="lazy">
+    </a>
+  </div>
+</div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
     </section>
     
     <section class="section section-glass" id="mapa">
       <h2 class="section__title">Ubicación</h2>
       <figure class="location-figure" aria-label="Ubicación: ceremonia y recepción">
-        <img class="location-banner"
-             src="img/ubicacion.png"
-             alt="Ubicación: Ceremonia religiosa y Recepción con horarios"
-             loading="lazy" decoding="async">
+        <img class="location-banner" src="img/ubicacion.png" alt="Ubicación: Ceremonia religiosa y Recepción con horarios" loading="lazy" decoding="async">
       </figure>
-      <div id="map" class="map placeholder"
-           data-map-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d35362.88677434476!2d-89.56424816417396!3d20.93261942032864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f567aa013df6de5%3A0x89679080d405f01f!2sHacienda%20El%20Gran%20Chaparral!5e1!3m2!1sen!2smx!4v1755489677353!5m2!1sen!2smx">
-        <button class="btn map__cta" type="button" aria-label="Cargar mapa interactivo de Hacienda El Gran Chaparral">
-          Ver mapa
-        </button>
+      <div id="map" class="map placeholder" data-map-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d35362.88677434476!2d-89.56424816417396!3d20.93261942032864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f567aa013df6de5%3A0x89679080d405f01f!2sHacienda%20El%20Gran%20Chaparral!5e1!3m2!1sen!2smx!4v1755489677353!5m2!1sen!2smx">
+        <button class="btn map__cta" type="button" aria-label="Cargar mapa interactivo de Hacienda El Gran Chaparral">Ver mapa</button>
         <p class="section__text">Toca “Ver mapa” para cargar el mapa interactivo.</p>
-    
         <noscript>
-          <iframe
-            title="Mapa: Hacienda El Gran Chaparral"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d35362.88677434476!2d-89.56424816417396!3d20.93261942032864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f567aa013df6de5%3A0x89679080d405f01f!2sHacienda%20El%20Gran%20Chaparral!5e1!3m2!1sen!2smx!4v1755489677353!5m2!1sen!2smx"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allowfullscreen
-            aria-label="Mapa: ubicación de la ceremonia"></iframe>
+          <iframe title="Mapa: Hacienda El Gran Chaparral" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d35362.88677434476!2d-89.56424816417396!3d20.93261942032864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f567aa013df6de5%3A0x89679080d405f01f!2sHacienda%20El%20Gran%20Chaparral!5e1!3m2!1sen!2smx!4v1755489677353!5m2!1sen!2smx" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
         </noscript>
       </div>
     </section>
@@ -262,19 +348,17 @@
           <ul class="list">
             <li><strong>Titular:</strong> <em>(por definir)</em></li>
             <li><strong>Cuenta:</strong> <em>(por definir)</em></li>
-            <li><strong>Tarjeta:</strong> <em>(por definir)</em></li>
           </ul>
         </div>
         <div class="gift-block">
           <h3>Mesa de regalos</h3>
           <ul class="list">
-            <li><strong>Sears (código):</strong> <em>(por definir)</em></li>
             <li><strong>Liverpool (código):</strong> <em>(por definir)</em></li>
           </ul>
         </div>
         <div class="gift-block">
           <h3>Lluvia de sobres</h3>
-          <p class="section__text"><em>Es la tradición de regalar dinero en efectivo en un sobre el día del evento.</em></p>
+          <p class="section__text"><em>Dinero en efectivo en un sobre el día del evento.</em></p>
         </div>
       </div>
     </section>
@@ -282,32 +366,26 @@
     <section class="rsvp section-glass" id="rsvp" data-aos="fade-up">
       <h2 class="rsvp__title">Confirma tu Asistencia</h2>
       <p class="rsvp__subtitle">Por favor confirma antes del <strong>10 de Noviembre del 2025</strong></p>
-      <form id="rsvpForm" class="rsvp__form"
-            novalidate
-            data-wa="529993572727"              
-            data-sheet-enabled="false"          
-            data-sheet-url="">                  
+      <form id="rsvpForm" class="rsvp__form" novalidate data-wa="529993572727">                  
         <label class="rsvp__label" for="guestName">Nombre Completo</label>
         <input class="rsvp__input" type="text" id="guestName" name="guestName" placeholder="Ej. Juan Pérez" required>
         <button class="rsvp__button" type="submit">
-          <span class="rsvp__button-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#25D366"/><path d="M22.22 19.36c-.31-.15-1.85-.91-2.14-1.02-.29-.1-.5-.15-.71.15-.21.3-.81 1.01-.99 1.21-.18.2-.36.22-.67.07-.31-.15-1.33-.49-2.54-1.54-.94-.84-1.57-1.87-1.76-2.18-.18-.3-.02-.47.14-.62.14-.14.31-.36.46-.54.15-.18.2-.3.3-.5.1-.21.05-.39-.03-.54-.09-.15-.71-1.71-.98-2.34-.26-.62-.52-.53-.72-.54-.18-.01-.39-.01-.6-.01s-.54.08-.82.38c-.28.3-1.09 1.07-1.09 2.61s1.12 3.02 1.27 3.23c.15.21 2.2 3.36 5.34 4.43.74.25 1.32.4 1.77.51.74.19 1.41.16 1.94.1.59-.07 1.85-.76 2.11-1.5.26-.74.26-1.36.18-1.5-.08-.15-.28-.23-.59-.38z" fill="#fff"/></svg>
-          </span>
+          <span class="rsvp__button-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#25D366"/><path d="M22.22 19.36c-.31-.15-1.85-.91-2.14-1.02-.29-.1-.5-.15-.71.15-.21.3-.81 1.01-.99 1.21-.18.2-.36.22-.67.07-.31-.15-1.33-.49-2.54-1.54-.94-.84-1.57-1.87-1.76-2.18-.18-.3-.02-.47.14-.62.14-.14.31-.36.46-.54.15-.18.2-.3.3-.5.1-.21.05-.39-.03-.54-.09-.15-.71-1.71-.98-2.34-.26-.62-.52-.53-.72-.54-.18-.01-.39-.01-.6-.01s-.54.08-.82.38c-.28.3-1.09 1.07-1.09 2.61s1.12 3.02 1.27 3.23c.15.21 2.2 3.36 5.34 4.43.74.25 1.32.4 1.77.51.74.19 1.41.16 1.94.1.59-.07 1.85-.76 2.11-1.5.26-.74.26-1.36.18-1.5-.08-.15-.28-.23-.59-.38z" fill="#fff"/></svg></span>
           Confirmar por WhatsApp
         </button>
-        <p class="rsvp__note">Serás redirigido a WhatsApp para confirmar tu asistencia.</p>
+        <p class="rsvp__note">Serás redirigido a WhatsApp para confirmar.</p>
         <p id="rsvpMsg" class="form__msg" aria-live="polite" hidden></p>
       </form>
     </section>
   </main>
   
   <footer class="footer">
-    <p class="footer__text">Gracias por acompañarnos en este día tan especial. <span class="footer__heart">♥</span><br>Web creada por [Tu Nombre o Agencia].</p>
+    <p class="footer__text">Gracias por acompañarnos en este día tan especial. <span class="footer__heart">♥</span><br>Con cariño, Alejandro & Monserrat.</p>
   </footer>
 
   <dialog id="lightbox">
     <div class="lb__frame">
-      <img class="lb__img" src="" alt="" tabindex="-1">
+      <img class="lb__img" src="" alt="">
       <button class="lb__close" title="Cerrar">×</button>
       <button class="lb__prev" title="Anterior">←</button>
       <button class="lb__next" title="Siguiente">→</button>
@@ -319,5 +397,4 @@
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script src="js/main.js"></script>
 </body>
-
 </html>
