@@ -392,19 +392,21 @@ a:hover { color: var(--color-gold); }
 .sponsors-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem 1.5rem;
+  justify-content: center; /* ¡Esta es la clave para centrar ambas filas! */
+  gap: 2rem 1.5rem;      /* Espacio vertical y horizontal entre items */
   max-width: 800px;
   margin: 2rem auto 0;
 }
+
 /* Estilo para cada item de los padrinos */
 .sponsor-item {
   text-align: center;
-  flex: 0 1 200px;
+  flex: 0 1 200px; /* Cada item tendrá una base de 200px */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 /* Estilo UNIFICADO para AMBOS tipos de iconos */
 .sponsor-item .sponsor-icon,
 .sponsor-item i {
@@ -414,24 +416,28 @@ a:hover { color: var(--color-gold); }
   margin-bottom: 1rem;
   vertical-align: middle;
 }
+
 /* Estilo específico para los iconos de Font Awesome */
 .sponsor-item i {
   font-size: 45px;
   line-height: 50px;
   color: var(--accent);
 }
+
 /* Estilo específico para TUS iconos (si los usaras aquí) */
 .sponsor-item .sponsor-icon {
   color: var(--accent);
   filter: invert(47%) sepia(21%) saturate(2371%) hue-rotate(331deg) brightness(91%) contrast(85%);
 }
-/* Estilo para el rol del padrino */
+
+/* Estilo para el rol del padrino (ej. Anillos) */
 .sponsor-role {
   font-family: var(--ff-display);
   font-size: 1.2rem;
   font-weight: 700;
   margin: 0.5rem 0;
 }
+
 /* Estilo para los nombres de los padrinos */
 .sponsor-names {
   font-size: 1rem;
@@ -440,3 +446,4 @@ a:hover { color: var(--color-gold); }
   line-height: 1.5;
   flex-grow: 1;
 }
+
