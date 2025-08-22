@@ -45,28 +45,63 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { passive: true });
   }
 
-  // === REPRODUCTOR DE MÚSICA PERSONALIZADO ===
-  setupAudioPlayer();
-  
-  // === INICIALIZACIÓN DE LIBRERÍAS (AOS, SWIPER) ===
-  const idle = fn => (window.requestIdleCallback ? requestIdleCallback(fn, { timeout: 1000 }) : setTimeout(fn, 150));
-  idle(() => {
-    if (window.AOS && document.querySelector('[data-aos]')) {
-      AOS.init({ duration: 550, once: true, disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches });
+function setupAudioPlayer() {
+    const audioPlayer = document.getElementById('audio-boda');
+    const playPauseBtn = document.getElementById('newPlayPauseBtn');
+    const iconPlay = playPauseBtn?.querySelector('.icon-play');
+    const iconPause = playPauseBtn?.querySelector('.icon-pause');
+    const seekBar = document.getElementById('seekBar');
+    const currentTimeDisplay = document.getElementById('currentTimeDisplay');
+    const totalDurationDisplay = document.getElementById('totalDurationDisplay');
+    const musicCard = document.getElementById('music-card'); // <-- Elemento nuevo: la tarjeta
+
+    if (!audioPlayer || !playPauseBtn || !seekBar || !currentTimeDisplay || !totalDurationDisplay || !musicCard) return;
+
+    function formatTime(seconds) {
+        if (isNaN(seconds)) return "0:00";
+        const minutes = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
     }
-    if (typeof Swiper !== 'undefined' && document.querySelector('.gallery-swiper')) {
-      new Swiper('.gallery-swiper', {
-        loop: true,
-        grabCursor: true,
-        slidesPerView: 1,
-        spaceBetween: 20,
-        pagination: { el: '.swiper-pagination', clickable: true },
-        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-        breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
-      });
-    }
-  });
-}); 
+
+    const setAudioData = () => {
+        totalDurationDisplay.textContent = formatTime(audioPlayer.duration);
+        seekBar.max = audioPlayer.duration;
+    };
+
+    audioPlayer.addEventListener('loadedmetadata', setAudioData);
+    audioPlayer.addEventListener('timeupdate', () => {
+        currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
+        seekBar.value = audioPlayer.currentTime;
+    });
+
+    playPauseBtn.addEventListener('click', () => {
+        if (audioPlayer.paused) {
+            audioPlayer.play().catch(e => console.error("Error al reproducir audio:", e));
+        } else {
+            audioPlayer.pause();
+        }
+    });
+
+    // --- ESTA ES LA PARTE MODIFICADA ---
+    audioPlayer.onplaying = () => {
+        iconPlay.style.display = 'none';
+        iconPause.style.display = 'block';
+        playPauseBtn.setAttribute('aria-pressed', 'true');
+        musicCard.classList.add('playing'); // <-- AÑADE la clase para animar
+    };
+
+    audioPlayer.onpause = () => {
+        iconPlay.style.display = 'block';
+        iconPause.style.display = 'none';
+        playPauseBtn.setAttribute('aria-pressed', 'false');
+        musicCard.classList.remove('playing'); // <-- QUITA la clase para detener la animación
+    };
+
+    seekBar.addEventListener('input', () => {
+        audioPlayer.currentTime = seekBar.value;
+    });
+}
 
 // =========== REPRODUCTOR DE AUDIO (FUNCIÓN COMPLETA) ==========
 function setupAudioPlayer() {
@@ -228,3 +263,4 @@ function setupAudioPlayer() {
     });
   });
 })();
+
