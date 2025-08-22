@@ -96,8 +96,6 @@ a:hover { color: var(--color-gold); }
   z-index: 3;
   width: 100%;
   background: color-mix(in oklab, white 12%, transparent);
-  -webkit-backdrop-filter: blur(6px) saturate(110%);
-  backdrop-filter: blur(6px) saturate(110%);
   border: 1px solid rgba(255,255,255,.45);
   box-shadow: 0 8px 24px rgba(0,0,0,.12);
   border-radius: 1.8rem;
@@ -446,4 +444,5 @@ a:hover { color: var(--color-gold); }
   line-height: 1.5;
   flex-grow: 1;
 }
+
 
