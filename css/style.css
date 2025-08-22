@@ -480,5 +480,126 @@ a:hover { color: var(--color-gold); }
 }
 
 
+/* ===========================
+   Estilos Mejorados para la Sección "Regalos"
+   =========================== */
+
+/* Renombramos la clase para evitar conflictos */
+.gifts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+/* Estilo de cada tarjeta de regalo */
+.gift-block {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gift-block:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Estilo para tus iconos personalizados */
+.gift-icon {
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 1.5rem auto;
+  /* Filtro para colorear tus iconos con el color de acento */
+  filter: invert(47%) sepia(21%) saturate(2371%) hue-rotate(331deg) brightness(91%) contrast(85%);
+}
+
+.gift-title {
+  font-family: var(--ff-display);
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.gift-description {
+  margin: 0;
+  flex-grow: 1; /* Empuja el botón hacia abajo en la tarjeta de Sears */
+  margin-bottom: 1.5rem;
+}
+
+/* Estilos para los detalles bancarios */
+.gift-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.gift-details li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-gold-light);
+}
+
+.gift-details li:last-child {
+  border-bottom: none;
+}
+
+.copy-button {
+  background: var(--color-gold-light);
+  color: var(--brand-700);
+  border: none;
+  border-radius: 5px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  position: relative;
+}
+
+.copy-button:hover {
+  background: var(--color-gold);
+  color: #fff;
+}
+
+.copy-button.copied::after {
+  content: '¡Copiado!';
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #28a745;
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+
+/* Botón para la mesa de regalos */
+.gift-button {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  font-family: var(--ff-display);
+  text-decoration: none;
+  margin-top: auto; /* Se alinea al fondo */
+  transition: var(--transition);
+}
+
+.gift-button:hover {
+  transform: scale(1.05);
+  background: color-mix(in oklab, var(--accent) 86%, black);
+}
+
+
 
 
