@@ -445,4 +445,56 @@ a:hover { color: var(--color-gold); }
   flex-grow: 1;
 }
 
+/* ===========================
+   Estilos Mejorados para "Código de Vestimenta"
+   =========================== */
+
+/* Contenedor principal de los dos bloques */
+.dresscode-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap; /* Permite que se apilen en pantallas pequeñas */
+}
+
+/* Estilo para cada bloque individual (Vestimenta y Niños) */
+.dresscode-item {
+  flex: 1;
+  min-width: 280px; /* Ancho mínimo para cada item */
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Estilo para el contenedor del icono */
+.dresscode-icon {
+  font-size: 2.5rem; /* Tamaño base para los iconos */
+  color: var(--accent);
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+/* Ajuste específico para el icono combinado de "no niños" */
+.dresscode-icon .fa-stack {
+  font-size: 1.8rem; /* Ajustamos el tamaño del stack para que se vea similar */
+  width: 1em;
+  height: 1em;
+}
+
+/* Título de cada bloque (ej. "Vestimenta") */
+.dresscode-title {
+  font-family: var(--ff-display);
+  font-size: 1.4rem;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+/* Texto descriptivo de cada bloque */
+.dresscode-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
 
