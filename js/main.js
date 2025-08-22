@@ -1,220 +1,455 @@
-// =========== CONFIGURACIÓN ==========
-const weddingDate = new Date('2025-11-22T20:00:00-06:00');
-const whatsappNumber = '529993572727';
-
-// =========== CONTADOR REGRESIVO ==========
-const timerElement = document.getElementById('timer');
-if (timerElement) {
-  const countdownInterval = setInterval(() => {
-    const now = new Date();
-    const diff = weddingDate - now;
-    if (diff < 0) {
-      timerElement.innerHTML = '<span class="countdown__finished">¡Llegó el gran día!</span>';
-      clearInterval(countdownInterval);
-      return;
-    }
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const m = Math.floor((diff / 1000 / 60) % 60);
-    const s = Math.floor((diff / 1000) % 60);
-    timerElement.innerHTML = `
-      <div class="countdown__timer-box"><span>${d}</span><span>Días</span></div>
-      <div class="countdown__timer-box"><span>${h}</span><span>Horas</span></div>
-      <div class="countdown__timer-box"><span>${m}</span><span>Minutos</span></div>
-      <div class="countdown__timer-box"><span>${s}</span><span>Segundos</span></div>
-    `;
-  }, 1000);
-}
-
-// =========== LÓGICA GENERAL AL CARGAR LA PÁGINA ==========
-document.addEventListener('DOMContentLoaded', function() {
-
-  // =========== PARALLAX HERO ==========
-  const parallaxBg = document.querySelector('.hero__parallax-bg');
-  if (parallaxBg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    window.addEventListener('scroll', () => {
-        const offset = window.scrollY;
-        parallaxBg.style.transform = `translateY(${offset * 0.33}px)`;
-    }, { passive: true });
-  }
-
-  // === INICIALIZAR REPRODUCTOR DE MÚSICA ===
-  setupAudioPlayer();
-
-  // === INICIALIZACIÓN DE OTRAS LIBRERÍAS (AOS, SWIPER) ===
-  if (window.AOS) {
-    AOS.init({ duration: 600, once: true });
-  }
-  if (window.Swiper && document.querySelector('.gallery-swiper')) {
-    new Swiper('.gallery-swiper', {
-      loop: true,
-      grabCursor: true,
-      slidesPerView: 1,
-      spaceBetween: 20,
-      pagination: { el: '.swiper-pagination', clickable: true },
-      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-      breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
-    });
-  }
-}); 
-
-// =========== REPRODUCTOR DE AUDIO (FUNCIÓN ÚNICA Y CORRECTA) ==========
-function setupAudioPlayer() {
-    const audioPlayer = document.getElementById('audio-boda');
-    const playPauseBtn = document.getElementById('newPlayPauseBtn');
-    const iconPlay = playPauseBtn?.querySelector('.icon-play');
-    const iconPause = playPauseBtn?.querySelector('.icon-pause');
-    const seekBar = document.getElementById('seekBar');
-    const currentTimeDisplay = document.getElementById('currentTimeDisplay');
-    const totalDurationDisplay = document.getElementById('totalDurationDisplay');
-    const musicCard = document.getElementById('music-card');
-
-    if (!audioPlayer || !playPauseBtn || !seekBar || !currentTimeDisplay || !totalDurationDisplay || !musicCard) return;
-
-    function formatTime(seconds) {
-        if (isNaN(seconds)) return "0:00";
-        const minutes = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
-    }
-
-    const setAudioData = () => {
-        totalDurationDisplay.textContent = formatTime(audioPlayer.duration);
-        seekBar.max = audioPlayer.duration;
-    };
-
-    audioPlayer.addEventListener('loadedmetadata', setAudioData);
-    audioPlayer.addEventListener('timeupdate', () => {
-        currentTimeDisplay.textContent = formatTime(audioPlayer.currentTime);
-        seekBar.value = audioPlayer.currentTime;
-    });
-
-    playPauseBtn.addEventListener('click', () => {
-        if (audioPlayer.paused) {
-            audioPlayer.play().catch(e => console.error("Error al reproducir audio:", e));
-        } else {
-            audioPlayer.pause();
-        }
-    });
-
-    audioPlayer.onplaying = () => {
-        iconPlay.style.display = 'none';
-        iconPause.style.display = 'block';
-        playPauseBtn.setAttribute('aria-pressed', 'true');
-        musicCard.classList.add('playing');
-    };
-
-    audioPlayer.onpause = () => {
-        iconPlay.style.display = 'block';
-        iconPause.style.display = 'none';
-        playPauseBtn.setAttribute('aria-pressed', 'false');
-        musicCard.classList.remove('playing');
-    };
-
-    seekBar.addEventListener('input', () => {
-        audioPlayer.currentTime = seekBar.value;
-    });
-}
-
-// =========== LIGHTBOX ACCESIBLE ==========
-(function () {
-  const container = document.querySelector('.gallery-swiper'); // Actualizado para el carrusel
-  if (!container) return;
-  const dlg = document.getElementById('lightbox');
-  if (!dlg) return;
-  const imgEl = dlg.querySelector('.lb__img');
-  const btnPrev = dlg.querySelector('.lb__prev');
-  const btnNext = dlg.querySelector('.lb__next');
-  let items = [];
-  let idx = 0;
-
-  function updateItems() {
-      items = Array.from(container.querySelectorAll('a[data-lightbox]'));
-  }
+<!DOCTYPE html>
+<html lang="es-MX" data-theme="claro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alejandro & Monserrat | Invitación de Boda</title>
   
-  function show(i) {
-    idx = (i + items.length) % items.length;
-    imgEl.src = items[idx].href;
-    imgEl.alt = items[idx].querySelector('img')?.alt || '';
-    if (!dlg.open) dlg.showModal();
-  }
+  <meta name="description" content="Acompáñanos a celebrar nuestra boda. Toda la información del evento: fecha, ubicación, itinerario y confirmación de asistencia.">
+  <link rel="canonical" href="https://tusitio.com/">
+  <meta property="og:site_name" content="Boda A & M">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Boda A & M — Nuestra boda">
+  <meta property="og:description" content="Fecha, ubicaciones, itinerario y RSVP. ¡Te esperamos!">
+  <meta property="og:url" content="https://tusitio.com/">
+  <meta property="og:image" content="https://tusitio.com/img/portada-1080.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#C9A24F">
 
-  container.addEventListener('click', (ev) => {
-    updateItems();
-    const anchor = ev.target.closest('a[data-lightbox]');
-    if (!anchor) return;
-    ev.preventDefault();
-    const i = items.findIndex(it => it === anchor);
-    if (i >= 0) show(i);
-  });
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="preload" as="image" href="img/portada-1080.png" imagesrcset="img/portada-768.png 768w, img/portada-800.png 800w, img/portada-1080.png 1080w" imagesizes="100vw">
   
-  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
-  dlg.querySelector('.lb__close').addEventListener('click', () => dlg.close());
-  btnPrev.addEventListener('click', () => show(idx - 1));
-  btnNext.addEventListener('click', () => show(idx + 1));
-  dlg.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') dlg.close();
-    if (e.key === 'ArrowLeft') show(idx - 1);
-    if (e.key === 'ArrowRight') show(idx + 1);
-  });
-})();
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
+  <link rel="stylesheet" href="css/style.css">
 
-// =========== FORMULARIO RSVP ==========
-(function(){
-  const form = document.getElementById('rsvpForm');
-  if (!form) return;
-  form.addEventListener('submit', (ev)=>{
-    ev.preventDefault();
-    const name = form.querySelector('#guestName')?.value.trim();
-    if (name.length < 2){
-      alert('Por favor, ingresa tu nombre.');
-      return;
-    }
-    const encoded = encodeURIComponent(`Hola, soy ${name}. Confirmo mi asistencia a la boda.`);
-    const waUrl = `https://wa.me/${form.dataset.wa || whatsappNumber}?text=${encoded}`;
-    window.open(waUrl, '_blank');
-  });
-})();
-
-// =========== CARGA DEL MAPA ==========
-(function () {
-  const box = document.getElementById('map');
-  const btn = box?.querySelector('.map__cta');
-  if (!box || !btn) return;
-  btn.addEventListener('click', () => {
-    const src = box.getAttribute('data-map-src');
-    if (!src || box.querySelector('iframe')) return;
-    const iframe = document.createElement('iframe');
-    iframe.src = src;
-    iframe.title = 'Mapa de ubicación';
-    iframe.allowFullscreen = true;
-    iframe.loading = 'lazy';
-    box.innerHTML = '';
-    box.appendChild(iframe);
-  });
-})();
-
-// =========== COPIAR AL PORTAPAPELES PARA REGALOS ==========
-(function() {
-  const copyButtons = document.querySelectorAll('.copy-button');
+  <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f490.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   
-  copyButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const textToCopy = button.getAttribute('data-copy');
-      
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(textToCopy).then(() => {
-          button.classList.add('copied');
-          setTimeout(() => {
-            button.classList.remove('copied');
-          }, 2000);
-        }).catch(err => {
-          console.error('Error al copiar texto: ', err);
-          alert('No se pudo copiar el texto.');
-        });
-      } else {
-        alert('La función de copiar no está disponible en conexiones no seguras (HTTP).');
-      }
-    });
-  });
-})();
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <div class="site-bg site-bg--terracotta" aria-hidden="true"></div>
+  
+  <div class="top-fixed-banner">
+    <img src="img/logo_100.png" alt="Logo Boda Alejandro & Monserrat"> 
+  </div>
+  
+  <header class="hero" id="hero">
+    <div class="hero__badge" aria-hidden="true"><span>A & M</span></div>
+    <div class="hero__parallax-bg">
+      <img
+        src="img/portada-800.png"
+        srcset="img/portada-768.png 768w, img/portada-800.png 800w, img/portada-1080.png 1080w"
+        sizes="100vw"
+        alt="Portada de la boda"
+        width="1080" height="608"
+        decoding="async" fetchpriority="high"
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+    </div>
+    <div class="hero__decoration hero__decoration--top-left" aria-hidden="true">
+      <svg viewBox="0 0 130 130"><g opacity="0.65"><ellipse cx="40" cy="35" rx="22" ry="8" fill="#91a88b" opacity="0.35"/><ellipse cx="16" cy="52" rx="8" ry="21" fill="#bfa14e" opacity="0.25"/><ellipse cx="64" cy="22" rx="11" ry="6" fill="#bfa14e" opacity="0.55"/><ellipse cx="27" cy="16" rx="8" ry="8" fill="#c8a764" opacity="0.7"/><ellipse cx="115" cy="25" rx="8" ry="16" fill="#6c7a59" opacity="0.15"/></g></svg>
+    </div>
+    <div class="hero__decoration hero__decoration--bottom-right" aria-hidden="true">
+      <svg viewBox="0 0 130 130"><g opacity="0.65"><ellipse cx="90" cy="100" rx="24" ry="10" fill="#91a88b" opacity="0.35"/><ellipse cx="112" cy="86" rx="8" ry="21" fill="#bfa14e" opacity="0.28"/><ellipse cx="74" cy="114" rx="11" ry="6" fill="#bfa14e" opacity="0.4"/><ellipse cx="103" cy="120" rx="9" ry="7" fill="#c8a764" opacity="0.7"/><ellipse cx="14" cy="105" rx="7" ry="17" fill="#6c7a59" opacity="0.16"/></g></svg>
+    </div>
+    
+    <div class="hero__content" data-aos="fade-up">
+      <div class="hero__message">Nuestra Boda</div>
+      <h1 class="hero__names hero__title">ALEJANDRO & MONSERRAT</h1>
+      <p class="hero__date">22 de Noviembre del 2025</p>
+      <a href="#rsvp" class="hero__cta-btn">Confirma tu asistencia</a>
+    </div>
+  </header> 
+
+  <main id="main" class="site-main" role="main">
+    <section class="play-invitation" data-aos="fade-up">
+      <p>Presiona el botón de play y desliza hacia abajo para descubrir más.</p>
+    </section>
+
+    <audio id="audio-boda" loop preload="auto" style="display: none;">
+      <source src="Happy.mp3" type="audio/mpeg"> 
+      Tu navegador no soporta audio HTML5.
+    </audio>
+
+    <div class="custom-audio-player-container" data-aos="fade-up">
+      <div class="custom-audio-player">
+        <button type="button" id="newPlayPauseBtn" class="play-pause-button" aria-label="Reproducir música" aria-controls="audio-boda" aria-pressed="false">
+          <svg class="icon-play" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+          <svg class="icon-pause" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="display:none;"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 011-1h2a1 1 0 110 2H8a1 1 0 01-1-1zm5 0a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+        </button>
+        <div class="progress-bar-wrapper">
+          <input type="range" id="seekBar" value="0" step="0.1" aria-label="Barra de progreso de la canción">
+        </div>
+        <div class="time-display">
+          <span id="currentTimeDisplay">0:00</span> / <span id="totalDurationDisplay">0:00</span>
+        </div>
+      </div>
+    </div>
+    
+    <section class="countdown section-glass" id="countdown" data-aos="fade-up">
+      <h2 class="section__title">Faltan</h2>
+      <div class="countdown__timer" id="timer"></div>
+    </section>
+    
+    <section class="story section-glass" id="story" data-aos="fade-up">
+      <h2 class="story__title" hidden aria-hidden="true">Nuestra Historia</h2>
+      <div class="story__container">
+        <div class="story__img" data-aos="fade-right">
+          <img src="img/pagina (10).webp" alt="Nuestra foto en la playa" loading="lazy" decoding="async" width="600" height="600">
+        </div>
+        <div class="story__text" data-aos="fade-left">
+          <p>
+            Cada día juntos ha sido un regalo y una oportunidad para construir sueños y recuerdos.<br><br>
+            Ahora, deseamos dar un gran paso adelante, y no podríamos imaginar hacerlo sin la bendición de Dios y el cariño de las personas que más significan para nosotros.<br><br>
+            En tu honor hemos reservado lugar para 2 personas.
+          </p>
+        </div>
+      </div>
+    </section>
+    
+<section class="family section-glass" id="family" data-aos="fade-up">
+  <h2 class="section__title">Con la bendición de Dios y de nuestros padres</h2>
+  
+  <div class="parents grid">
+  <div class="parent-block">
+    <img src="img/icons/novia.svg" alt="Icono de Novia" class="parent-icon-custom">
+    <h3 class="parent-label">Padres de la Novia</h3>
+    <p class="parent-names">Roberto Kú Ojeda &<br>Diana Borges Morales</p>
+  </div>
+  <div class="parent-block">
+    <img src="img/icons/novio.svg" alt="Icono de Novio" class="parent-icon-custom">
+    <h3 class="parent-label">Padres del Novio</h3>
+    <p class="parent-names">Julio Castillo Espadas &<br>Yolanda Moreno Valdovinos</p>
+  </div>
+</div>
+  
+  <div class="divider"></div>
+
+  <h2 class="section__title">Y el cariño y apoyo de nuestros padrinos:</h2>
+
+<div class="sponsors-grid">
+  <div class="sponsor-item">
+    <img src="img/icons/anillos.svg" alt="Icono de Anillos" class="sponsor-icon">
+    <h4 class="sponsor-role">Anillos</h4>
+    <p class="sponsor-names">Julio Castillo &<br>Danae Tapia</p>
+  </div>
+  <div class="sponsor-item">
+    <i class="fa-solid fa-church"></i>
+    <h4 class="sponsor-role">Velación</h4>
+    <p class="sponsor-names">Carlos Ayala &<br>Teresa Chale</p>
+  </div>
+  <div class="sponsor-item">
+    <i class="fa-solid fa-infinity"></i>
+    <h4 class="sponsor-role">Lazo</h4>
+    <p class="sponsor-names">Gabriel Herrera &<br>Donna Rincón</p>
+  </div>
+  <div class="sponsor-item">
+    <i class="fa-solid fa-coins"></i>
+    <h4 class="sponsor-role">Arras</h4>
+    <p class="sponsor-names">Manuel Borges &<br>Yazmín Cardeña</p>
+  </div>
+ <div class="sponsor-item">
+    <img src="img/icons/ramo.svg" alt="Icono de Ramo" class="sponsor-icon">
+    <h4 class="sponsor-role">Ramo</h4>
+    <p class="sponsor-names">Reyna Kú</p>
+  </div>
+</div>
+    
+    <section class="gallery-section section-glass" id="gallery" data-aos="fade-up">
+        <h2 class="section__title">Nuestros Momentos</h2>
+        <div class="swiper gallery-swiper">
+            <div class="swiper-wrapper">
+  <div class="swiper-slide">
+    <a href="img/gallery/1.webp" data-lightbox>
+      <img src="img/gallery/1.webp" alt="Recuerdo de Alejandro y Monserrat 1" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/2.webp" data-lightbox>
+      <img src="img/gallery/2.webp" alt="Recuerdo de Alejandro y Monserrat 2" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/3.webp" data-lightbox>
+      <img src="img/gallery/3.webp" alt="Recuerdo de Alejandro y Monserrat 3" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/4.webp" data-lightbox>
+      <img src="img/gallery/4.webp" alt="Recuerdo de Alejandro y Monserrat 4" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/5.webp" data-lightbox>
+      <img src="img/gallery/5.webp" alt="Recuerdo de Alejandro y Monserrat 5" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/6.webp" data-lightbox>
+      <img src="img/gallery/6.webp" alt="Recuerdo de Alejandro y Monserrat 6" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/7.webp" data-lightbox>
+      <img src="img/gallery/7.webp" alt="Recuerdo de Alejandro y Monserrat 7" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/8.webp" data-lightbox>
+      <img src="img/gallery/8.webp" alt="Recuerdo de Alejandro y Monserrat 8" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/9.webp" data-lightbox>
+      <img src="img/gallery/9.webp" alt="Recuerdo de Alejandro y Monserrat 9" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/10.webp" data-lightbox>
+      <img src="img/gallery/10.webp" alt="Recuerdo de Alejandro y Monserrat 10" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/11.webp" data-lightbox>
+      <img src="img/gallery/11.webp" alt="Recuerdo de Alejandro y Monserrat 11" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/12.webp" data-lightbox>
+      <img src="img/gallery/12.webp" alt="Recuerdo de Alejandro y Monserrat 12" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/13.webp" data-lightbox>
+      <img src="img/gallery/13.webp" alt="Recuerdo de Alejandro y Monserrat 13" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/14.webp" data-lightbox>
+      <img src="img/gallery/14.webp" alt="Recuerdo de Alejandro y Monserrat 14" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/15.webp" data-lightbox>
+      <img src="img/gallery/15.webp" alt="Recuerdo de Alejandro y Monserrat 15" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/16.webp" data-lightbox>
+      <img src="img/gallery/16.webp" alt="Recuerdo de Alejandro y Monserrat 16" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/17.webp" data-lightbox>
+      <img src="img/gallery/17.webp" alt="Recuerdo de Alejandro y Monserrat 17" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/18.webp" data-lightbox>
+      <img src="img/gallery/18.webp" alt="Recuerdo de Alejandro y Monserrat 18" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/19.webp" data-lightbox>
+      <img src="img/gallery/19.webp" alt="Recuerdo de Alejandro y Monserrat 19" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/20.webp" data-lightbox>
+      <img src="img/gallery/20.webp" alt="Recuerdo de Alejandro y Monserrat 20" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/21.webp" data-lightbox>
+      <img src="img/gallery/21.webp" alt="Recuerdo de Alejandro y Monserrat 21" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/22.webp" data-lightbox>
+      <img src="img/gallery/22.webp" alt="Recuerdo de Alejandro y Monserrat 22" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/23.webp" data-lightbox>
+      <img src="img/gallery/23.webp" alt="Recuerdo de Alejandro y Monserrat 23" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/24.webp" data-lightbox>
+      <img src="img/gallery/24.webp" alt="Recuerdo de Alejandro y Monserrat 24" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/25.webp" data-lightbox>
+      <img src="img/gallery/25.webp" alt="Recuerdo de Alejandro y Monserrat 25" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/26.webp" data-lightbox>
+      <img src="img/gallery/26.webp" alt="Recuerdo de Alejandro y Monserrat 26" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/27.webp" data-lightbox>
+      <img src="img/gallery/27.webp" alt="Recuerdo de Alejandro y Monserrat 27" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/28.webp" data-lightbox>
+      <img src="img/gallery/28.webp" alt="Recuerdo de Alejandro y Monserrat 28" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/29.webp" data-lightbox>
+      <img src="img/gallery/29.webp" alt="Recuerdo de Alejandro y Monserrat 29" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/30.webp" data-lightbox>
+      <img src="img/gallery/30.webp" alt="Recuerdo de Alejandro y Monserrat 30" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/31.webp" data-lightbox>
+      <img src="img/gallery/31.webp" alt="Recuerdo de Alejandro y Monserrat 31" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/32.webp" data-lightbox>
+      <img src="img/gallery/32.webp" alt="Recuerdo de Alejandro y Monserrat 32" loading="lazy">
+    </a>
+  </div>
+  <div class="swiper-slide">
+    <a href="img/gallery/33.webp" data-lightbox>
+      <img src="img/gallery/33.webp" alt="Recuerdo de Alejandro y Monserrat 33" loading="lazy">
+    </a>
+  </div>             
+</div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+    
+    <section class="section section-glass" id="mapa">
+      <h2 class="section__title">Ubicación</h2>
+      <figure class="location-figure" aria-label="Ubicación: ceremonia y recepción">
+        <img class="location-banner" src="img/ubicacion.png" alt="Ubicación: Ceremonia religiosa y Recepción con horarios" loading="lazy" decoding="async">
+      </figure>
+      <div id="map" class="map placeholder" data-map-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d35362.88677434476!2d-89.56424816417396!3d20.93261942032864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f567aa013df6de5%3A0x89679080d405f01f!2sHacienda%20El%20Gran%20Chaparral!5e1!3m2!1sen!2smx!4v1755489677353!5m2!1sen!2smx">
+        <button class="btn map__cta" type="button" aria-label="Cargar mapa interactivo de Hacienda El Gran Chaparral">Ver mapa</button>
+        <p class="section__text">Toca “Ver mapa” para cargar el mapa interactivo.</p>
+        <noscript>
+          <iframe title="Mapa: Hacienda El Gran Chaparral" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d35362.88677434476!2d-89.56424816417396!3d20.93261942032864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f567aa013df6de5%3A0x89679080d405f01f!2sHacienda%20El%20Gran%20Chaparral!5e1!3m2!1sen!2smx!4v1755489677353!5m2!1sen!2smx" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </noscript>
+      </div>
+    </section>
+    
+    <section class="dresscode section-glass" id="dresscode" data-aos="fade-up">
+  <h2 class="section__title">Código de vestimenta</h2>
+  
+  <div class="dresscode-content">
+    
+    <div class="dresscode-icons-wrapper">
+      <img src="img/icons/vestimenta1.svg" alt="Icono de Vestimenta Novia" class="dresscode-icon">
+      <img src="img/icons/vestimenta2.svg" alt="Icono de Vestimenta Novio" class="dresscode-icon">
+    </div>
+
+    <p class="dresscode-text">
+      <strong>Formal elegante.</strong><br>Por favor, evitar el color blanco y tonos muy similares.
+    </p>
+    <p class="dresscode-text">
+      Nuestra celebración será nocturna y al aire libre; por logística y seguridad, hemos decidido <strong>no invitar a niños.</strong> Gracias por su comprensión.
+    </p>
+
+  </div>
+</section>
+
+    <section class="gifts section-glass" id="gifts" data-aos="fade-up">
+  <h2 class="section__title">Mesa de Regalos</h2>
+  <p class="section__text">Su presencia en nuestra boda será el mejor regalo. Pero si desean darnos otro obsequio, aquí tienen algunas sugerencias:</p>
+
+  <div class="gifts-grid">
+    <div class="gift-block">
+      <img src="img/icons/banco.svg" alt="Icono de Transferencia Bancaria" class="gift-icon">
+      <h3 class="gift-title">Transferencia Bancaria</h3>
+      <ul class="gift-details">
+        <li>
+          <span><strong>Titular:</strong> Monserrat Kú Borges</span>
+        </li>
+        <li>
+          <span><strong>Cuenta HSBC:</strong> 6465596587</span>
+          <button class="copy-button" data-copy="6465596587" aria-label="Copiar número de cuenta">Copiar</button>
+        </li>
+        <li>
+          <span><strong>Tarjeta HSBC:</strong> 4213166149984027</span>
+          <button class="copy-button" data-copy="4213166149984027" aria-label="Copiar número de tarjeta">Copiar</button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="gift-block">
+      <img src="img/icons/regalo.svg" alt="Icono de Mesa de Regalos" class="gift-icon">
+      <h3 class="gift-title">Mesa de Regalos</h3>
+      <p class="gift-description">Hemos creado una mesa de regalos con varias opciones que nos serían de gran ayuda.</p>
+      <a href="https://www.sears.com.mx/Mesa-de-Regalos/206921/te-invito-a-mi-boda-monserrat-guadalupe-daniel-alejandro" class="gift-button" target="_blank" rel="noopener noreferrer">
+        Ver Mesa de Regalos
+      </a>
+    </div>
+
+    <div class="gift-block">
+      <img src="img/icons/sobre.svg" alt="Icono de Lluvia de Sobres" class="gift-icon">
+      <h3 class="gift-title">Lluvia de Sobres</h3>
+      <p class="gift-description">Si lo prefieres, habrá un espacio especial el día del evento para recibir obsequios en efectivo.</p>
+    </div>
+  </div>
+</section>
+    
+    <section class="rsvp section-glass" id="rsvp" data-aos="fade-up">
+      <h2 class="rsvp__title">Confirma tu Asistencia</h2>
+      <p class="rsvp__subtitle">Por favor confirma antes del <strong>10 de Noviembre del 2025</strong></p>
+      <form id="rsvpForm" class="rsvp__form" novalidate data-wa="529993572727">                  
+        <label class="rsvp__label" for="guestName">Nombre Completo</label>
+        <input class="rsvp__input" type="text" id="guestName" name="guestName" placeholder="Ej. Juan Pérez" required>
+        <button class="rsvp__button" type="submit">
+          <span class="rsvp__button-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#25D366"/><path d="M22.22 19.36c-.31-.15-1.85-.91-2.14-1.02-.29-.1-.5-.15-.71.15-.21.3-.81 1.01-.99 1.21-.18.2-.36.22-.67.07-.31-.15-1.33-.49-2.54-1.54-.94-.84-1.57-1.87-1.76-2.18-.18-.3-.02-.47.14-.62.14-.14.31-.36.46-.54.15-.18.2-.3.3-.5.1-.21.05-.39-.03-.54-.09-.15-.71-1.71-.98-2.34-.26-.62-.52-.53-.72-.54-.18-.01-.39-.01-.6-.01s-.54.08-.82.38c-.28.3-1.09 1.07-1.09 2.61s1.12 3.02 1.27 3.23c.15.21 2.2 3.36 5.34 4.43.74.25 1.32.4 1.77.51.74.19 1.41.16 1.94.1.59-.07 1.85-.76 2.11-1.5.26-.74.26-1.36.18-1.5-.08-.15-.28-.23-.59-.38z" fill="#fff"/></svg></span>
+          Confirmar por WhatsApp
+        </button>
+        <p class="rsvp__note">Serás redirigido a WhatsApp para confirmar.</p>
+        <p id="rsvpMsg" class="form__msg" aria-live="polite" hidden></p>
+      </form>
+    </section>
+  </main>
+  
+  <footer class="footer">
+    <p class="footer__text">Gracias por acompañarnos en este día tan especial. <span class="footer__heart">♥</span><br>Con cariño, Alejandro & Monserrat.</p>
+  </footer>
+
+  <dialog id="lightbox">
+    <div class="lb__frame">
+      <img class="lb__img" src="" alt="">
+      <button class="lb__close" title="Cerrar">×</button>
+      <button class="lb__prev" title="Anterior">←</button>
+      <button class="lb__next" title="Siguiente">→</button>
+    </div>
+  </dialog>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
