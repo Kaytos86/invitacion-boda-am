@@ -200,3 +200,31 @@ function setupAudioPlayer() {
     box.appendChild(iframe);
   });
 })();
+
+// =========== COPIAR AL PORTAPAPELES PARA REGALOS ==========
+(function() {
+  const copyButtons = document.querySelectorAll('.copy-button');
+  
+  copyButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const textToCopy = button.getAttribute('data-copy');
+      
+      // La función de copiado necesita un contexto seguro (HTTPS) para funcionar
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          // Éxito al copiar
+          button.classList.add('copied');
+          setTimeout(() => {
+            button.classList.remove('copied');
+          }, 2000); // El mensaje "¡Copiado!" desaparecerá después de 2 segundos
+        }).catch(err => {
+          console.error('Error al copiar texto: ', err);
+          alert('No se pudo copiar el texto.');
+        });
+      } else {
+        // Fallback o alerta para contextos no seguros (ej. http://)
+        alert('La función de copiar no está disponible en conexiones no seguras (HTTP).');
+      }
+    });
+  });
+})();
