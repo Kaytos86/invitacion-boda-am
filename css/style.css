@@ -446,55 +446,93 @@ a:hover { color: var(--color-gold); }
 }
 
 /* ===========================
-   Estilos Mejorados para "Código de Vestimenta"
-   =========================== */
+Estilos Mejorados para "Código de Vestimenta" (MODIFICADO)
+=========================== */
 
-/* Contenedor principal de los dos bloques */
 .dresscode-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 2rem;
-  margin-top: 2rem;
-  flex-wrap: wrap; /* Permite que se apilen en pantallas pequeñas */
+display: flex;
+justify-content: center;
+align-items: flex-start;
+gap: 3rem; /* Aumenta el espacio entre los bloques */
+margin-top: 2rem;
+flex-wrap: wrap;
 }
 
-/* Estilo para cada bloque individual (Vestimenta y Niños) */
 .dresscode-item {
-  flex: 1;
-  min-width: 280px; /* Ancho mínimo para cada item */
-  text-align: center;
-  padding: 1rem;
+flex: 1;
+min-width: 280px;
+text-align: center;
+padding: 1rem;
 }
 
-/* Estilo para el contenedor del icono */
-.dresscode-icon {
-  font-size: 2.5rem; /* Tamaño base para los iconos */
-  color: var(--accent);
-  margin-bottom: 1rem;
-  line-height: 1;
+/* Nuevo estilo para el contenedor de iconos de vestimenta */
+.dresscode-item--icons {
+display: flex;
+flex-direction: column;
+align-items: center;
 }
 
-/* Ajuste específico para el icono combinado de "no niños" */
-.dresscode-icon .fa-stack {
-  font-size: 1.8rem; /* Ajustamos el tamaño del stack para que se vea similar */
-  width: 1em;
-  height: 1em;
+.dresscode-item--icons .parent-icon-custom {
+display: flex; /* Centra los iconos horizontalmente /
+gap: 2rem;
+margin-bottom: 1rem; / Espacio debajo de los iconos */
 }
 
-/* Título de cada bloque (ej. "Vestimenta") */
+.dresscode-item--icons .parent-icon-custom img {
+width: 50px; /* Ajusta el tamaño de los iconos /
+height: 50px;
+filter: invert(47%) sepia(21%) saturate(2371%) hue-rotate(331deg) brightness(91%) contrast(85%); / Asegura el color */
+}
+
+.dresscode-item--icons .dresscode-text--centered {
+text-align: center; /* Centra el texto debajo de los iconos */
+}
+
 .dresscode-title {
-  font-family: var(--ff-display);
-  font-size: 1.4rem;
-  margin-top: 0;
-  margin-bottom: 0.75rem;
+font-family: var(--ff-display);
+font-size: 1.4rem;
+margin-top: 0;
+margin-bottom: 0.75rem;
 }
 
-/* Texto descriptivo de cada bloque */
 .dresscode-text {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin: 0;
+font-size: 1rem;
+line-height: 1.6;
+margin: 0;
 }
+
+.dresscode-item--no-kids {
+text-align: center; /* Asegura que el bloque de no niños esté centrado */
+}
+
+.dresscode-item--no-kids .parent-icon-custom--no-kids {
+font-size: 2.5rem;
+color: var(--accent);
+margin-bottom: 1rem;
+line-height: 1;
+display: flex; /* Centra el icono */
+justify-content: center;
+}
+
+.dresscode-item--no-kids .parent-icon-custom--no-kids .fa-stack {
+font-size: 1.8rem;
+width: 1em;
+height: 1em;
+}
+
+.dresscode-item--no-kids .dresscode-text--centered {
+text-align: center;
+}
+
+/*
+ESTILOS ANTERIORES (COMENTADOS POR SI QUIERES VOLVER)
+.dresscode-icon {
+font-size: 2.5rem;
+color: var(--accent);
+margin-bottom: 1rem;
+line-height: 1;
+}
+*/
+
 
 
