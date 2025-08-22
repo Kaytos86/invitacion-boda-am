@@ -68,24 +68,34 @@
   </header> 
 
   <main id="main" class="site-main" role="main">
-    <section class="play-invitation" data-aos="fade-up">
-      <p>Presiona el botón de play y desliza hacia abajo para descubrir más.</p>
-    </section>
+    <section class="music-player-section" data-aos="fade-up">
+  <div class="music-player-card" id="music-card">
+    <img src="img/nuestra-cancion.jpg" alt="Carátula de nuestra canción" class="album-art">
+    
+    <div class="song-info">
+      <h3 class="song-title">Título de la Canción</h3>
+      <p class="song-artist">Nombre del Artista</p>
+    </div>
+    
+    <div class="custom-audio-player">
+      <button type="button" id="newPlayPauseBtn" class="play-pause-button" aria-label="Reproducir música" aria-controls="audio-boda" aria-pressed="false">
+        <svg class="icon-play" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+        <svg class="icon-pause" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="display:none;"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 011-1h2a1 1 0 110 2H8a1 1 0 01-1-1zm5 0a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+      </button>
+      <div class="progress-bar-wrapper">
+        <input type="range" id="seekBar" value="0" step="0.1" aria-label="Barra de progreso de la canción">
+      </div>
+      <div class="time-display">
+        <span id="currentTimeDisplay">0:00</span> / <span id="totalDurationDisplay">0:00</span>
+      </div>
+    </div>
+  </div>
 
-    <audio id="audio-boda" loop preload="auto" style="display: none;">
-      <source src="Happy.mp3" type="audio/mpeg"> 
-      Tu navegador no soporta audio HTML5.
-    </audio>
-
-    <div class="custom-audio-player-container" data-aos="fade-up">
-      <div class="custom-audio-player">
-        <button type="button" id="newPlayPauseBtn" class="play-pause-button" aria-label="Reproducir música" aria-controls="audio-boda" aria-pressed="false">
-          <svg class="icon-play" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-          <svg class="icon-pause" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="display:none;"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 011-1h2a1 1 0 110 2H8a1 1 0 01-1-1zm5 0a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-        </button>
-        <div class="progress-bar-wrapper">
-          <input type="range" id="seekBar" value="0" step="0.1" aria-label="Barra de progreso de la canción">
-        </div>
+  <audio id="audio-boda" loop preload="auto" style="display: none;">
+    <source src="Happy.mp3" type="audio/mpeg"> 
+    Tu navegador no soporta audio HTML5.
+  </audio>
+</section>
         <div class="time-display">
           <span id="currentTimeDisplay">0:00</span> / <span id="totalDurationDisplay">0:00</span>
         </div>
@@ -446,6 +456,7 @@
   <script src="js/main.js"></script>
 </body>
 </html>
+
 
 
 
