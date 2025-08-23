@@ -687,44 +687,40 @@ a:hover { color: var(--color-gold); }
 }
 
 /* ===========================
-   Estilos CORREGIDOS para la Portada
-   =========================== */
+Estilos REFINADOS para la Portada (Opción 2: Cristalino Puro + Borde)
+=========================== */
 
-/* Ajuste al contenedor principal para empujar el contenido hacia abajo */
 .hero {
-  /* ... tus otras propiedades de .hero se mantienen ... */
   display: flex;
-  flex-direction: column;     /* Apila los elementos verticalmente */
-  justify-content: flex-end;  /* Empuja el contenido al final (abajo) */
-  padding-bottom: 10vh;       /* Añade un espacio desde el borde inferior de la pantalla */
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 10vh;
 }
 
-/* Nuevo estilo para el cuadro de contenido */
 .hero__content.hero__content--bottom {
-  /* Eliminamos el posicionamiento absoluto para que Flexbox lo controle */
   width: 90%;
-  max-width: 550px; /* Ancho máximo en pantallas grandes */
+  max-width: 550px;
   padding: 2rem;
   border-radius: 1.5rem;
-  
-  /* --- AQUÍ RESTAURAMOS LA TRANSPARENCIA Y EL BLUR --- */
-  background: rgba(255, 255, 255, 0.15); /* Fondo muy translúcido */
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.05); /* Fondo muy transparente */
+  /* backdrop-filter: blur(0); - Eliminamos el desenfoque */
+  -webkit-backdrop-filter: blur(0);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.03);
 }
 
 .hero__content--bottom .hero__title {
-  color: var(--brand-700); /* Un tono oscuro de la paleta para contraste */
-  font-size: clamp(1.8rem, 5vw, 2.5rem); /* Tamaño de fuente adaptable */
+  color: var(--brand-700);
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
   margin-bottom: 0.5rem;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; /* Borde negro */
 }
 
 .hero__content--bottom .hero__date strong {
   font-size: 1.2em;
   color: var(--accent);
   font-weight: 700;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; /* Borde negro */
 }
 
 .hero__content--bottom .hero__cta-btn {
