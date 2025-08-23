@@ -610,12 +610,13 @@ a:hover { color: var(--color-gold); }
   margin: 0 auto 2rem auto;
 }
 
-/* Estilo para cada fila de evento (Ceremonia, Recepción) */
+/* En style.css */
 .timeline-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  margin-bottom: 1.5rem; /* <-- Añade esta línea para dar más espacio */
 }
 
 /* Estilo para tus iconos personalizados */
@@ -684,5 +685,6 @@ a:hover { color: var(--color-gold); }
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
+
 
 
