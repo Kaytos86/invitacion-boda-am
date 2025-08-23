@@ -685,10 +685,10 @@ a:hover { color: var(--color-gold); }
 }
 
 /* ===========================
-   Estilos FINALES para la Portada (Cristalino y con Sombra)
+   Estilos FINALES para la Portada (Texto Dorado con Relieve)
    =========================== */
 
-/* Ajuste al contenedor principal para empujar el contenido hacia abajo */
+/* Contenedor principal para empujar el contenido hacia abajo */
 .hero {
   display: flex;
   flex-direction: column;
@@ -702,45 +702,28 @@ a:hover { color: var(--color-gold); }
   max-width: 550px;
   padding: 2rem;
   border-radius: 1.5rem;
-  
-  /* --- ESTILO CRISTALINO --- */
-  background: rgba(255, 255, 255, 0.1);       /* Fondo transparente */
-  border: 1px solid rgba(255, 255, 255, 0.25);  /* Borde sutil de cristal */
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);      /* Sombra para darle profundidad */
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-/* Título con efecto dorado */
+/* Título con efecto dorado y sombra de relieve */
 .hero__content--bottom .hero__title {
-  /* 1. Definimos un gradiente como fondo */
-  background: linear-gradient(45deg, #e6c56c, #b38a2e);
-  
-  /* 2. Hacemos que el fondo solo sea visible en el texto */
-  -webkit-background-clip: text;
-  background-clip: text;
-  
-  /* 3. Ocultamos el color de la fuente para que se vea el fondo */
-  color: transparent;
-  
+  color: #D4AF37; /* Color dorado principal */
   font-size: clamp(2rem, 6vw, 2.8rem);
   margin-bottom: 0.5rem;
-  
-  /* 4. Sombra oscura y suave para dar profundidad y legibilidad */
-  text-shadow: 1px 1px 5px rgba(43, 43, 43, 0.6);
+  font-weight: 700;
+  /* Sombra para dar un efecto de relieve y separarlo del fondo */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-/* Fecha con efecto dorado */
+/* Fecha con color de acento y sombra suave */
 .hero__content--bottom .hero__date strong {
-  /* Repetimos la misma técnica para la fecha */
-  background: linear-gradient(45deg, #e6c56c, #b38a2e);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  
+  color: var(--accent); /* Color terracota de acento */
   font-size: 1.3em;
   font-weight: 700;
-  
-  /* Sombra más sutil para la fecha */
-  text-shadow: 1px 1px 3px rgba(43, 43, 43, 0.5);
+  /* Sombra más suave para la fecha */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 /* Botón (sin cambios) */
@@ -758,5 +741,4 @@ a:hover { color: var(--color-gold); }
 .hero__content--bottom .hero__cta-btn:hover {
   background-color: color-mix(in srgb, var(--accent) 80%, black);
 }
-
 
