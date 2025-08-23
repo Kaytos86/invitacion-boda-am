@@ -1,6 +1,6 @@
 // =========== CONFIGURACIÓN ==========
 const weddingDate = new Date('2025-11-22T20:00:00-06:00');
-const whatsappNumber = '529993572727';
+const whatsappNumber = '529991631771';
 
 // =========== CONTADOR REGRESIVO ==========
 const timerElement = document.getElementById('timer');
@@ -222,7 +222,7 @@ function setupAudioPlayer() {
   const additionalGuestsContainer = document.getElementById('additional-guests-container');
   const submitButton = document.getElementById('submitRsvpBtn');
   const rsvpChoiceContainer = document.querySelector('.rsvp-choice-container');
-  const whatsappNumber = '529993572727';
+  const whatsappNumber = '529991631771';
 
   // Ocultar campos de acompañantes y botón de envío al inicio
   additionalGuestsContainer.classList.add('hidden');
@@ -333,6 +333,7 @@ function setupAudioPlayer() {
     window.open(waUrl, '_blank');
   });
 })();
+
 
 
 
