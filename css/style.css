@@ -687,9 +687,10 @@ a:hover { color: var(--color-gold); }
 }
 
 /* ===========================
-Estilos REFINADOS para la Portada (Opción 2: Cristalino Puro + Borde)
-=========================== */
+   Estilos FINALES para la Portada (Elegante y Legible)
+   =========================== */
 
+/* Ajuste al contenedor principal para empujar el contenido hacia abajo */
 .hero {
   display: flex;
   flex-direction: column;
@@ -697,32 +698,39 @@ Estilos REFINADOS para la Portada (Opción 2: Cristalino Puro + Borde)
   padding-bottom: 10vh;
 }
 
+/* Panel de cristal refinado */
 .hero__content.hero__content--bottom {
   width: 90%;
   max-width: 550px;
   padding: 2rem;
   border-radius: 1.5rem;
-  background: rgba(255, 255, 255, 0.05); /* Fondo muy transparente */
-  /* backdrop-filter: blur(0); - Eliminamos el desenfoque */
-  -webkit-backdrop-filter: blur(0);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.03);
+  /* Fondo un poco más opaco y con más desenfoque para mejor lectura */
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
 }
 
+/* Título con sombra suave */
 .hero__content--bottom .hero__title {
-  color: var(--brand-700);
+  color: var(--brand-700); /* Mantenemos el color café oscuro */
   font-size: clamp(1.8rem, 5vw, 2.5rem);
   margin-bottom: 0.5rem;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; /* Borde negro */
+  /* Sombra suave para dar profundidad y legibilidad */
+  text-shadow: 1px 1px 5px rgba(43, 43, 43, 0.5);
 }
 
+/* Fecha con sombra suave */
 .hero__content--bottom .hero__date strong {
   font-size: 1.2em;
-  color: var(--accent);
+  color: var(--accent); /* Mantenemos el color de acento */
   font-weight: 700;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; /* Borde negro */
+  /* Sombra suave para dar profundidad y legibilidad */
+  text-shadow: 1px 1px 5px rgba(43, 43, 43, 0.4);
 }
 
+/* Botón (sin cambios) */
 .hero__content--bottom .hero__cta-btn {
   background-color: var(--accent);
   color: #fff;
