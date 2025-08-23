@@ -213,86 +213,97 @@ function setupAudioPlayer() {
   });
 })();
 
-// =========== FORMULARIO RSVP DINÁMICO (CON OPCIÓN SÍ/NO) ==========
+// =========== FORMULARIO RSVP DINÁMICO (VERSIÓN CORREGIDA SÍ/NO) ==========
 (function() {
   const form = document.getElementById('rsvpForm');
   if (!form) return;
 
-  const guestFieldsContainer = document.getElementById('guest-fields-container');
+  const mainGuestInput = document.getElementById('mainGuestName');
+  const additionalGuestsContainer = document.getElementById('additional-guests-container');
   const submitButton = document.getElementById('submitRsvpBtn');
   const rsvpChoiceContainer = document.querySelector('.rsvp-choice-container');
-  const whatsappNumber = '529991631771'; 
+  const whatsappNumber = '529993572727';
 
-  // Ocultar campos de nombre y botón de envío al inicio
-  guestFieldsContainer.classList.add('hidden');
+  // Ocultar campos de acompañantes y botón de envío al inicio
+  additionalGuestsContainer.classList.add('hidden');
   submitButton.classList.add('hidden');
 
   // Lógica para mostrar/ocultar campos al elegir Sí/No
   rsvpChoiceContainer.addEventListener('change', (event) => {
     const choice = event.target.value;
     if (choice === 'yes') {
-      guestFieldsContainer.classList.remove('hidden');
+      additionalGuestsContainer.classList.remove('hidden');
       submitButton.classList.remove('hidden');
     } else if (choice === 'no') {
-      guestFieldsContainer.classList.add('hidden');
+      additionalGuestsContainer.classList.add('hidden');
       submitButton.classList.remove('hidden');
     }
   });
 
   const urlParams = new URLSearchParams(window.location.search);
   let numberOfGuests = parseInt(urlParams.get('pases')) || 1;
-  if (numberOfGuests > 10) numberOfGuests = 10;
   
-  // Limpiamos el contenedor para evitar duplicados al refrescar la página
-  guestFieldsContainer.innerHTML = '<p class="guest-fields-title">Por favor, escribe el nombre de los invitados:</p>';
-
-  for (let i = 1; i <= numberOfGuests; i++) {
-    const fieldHtml = `
-      <div class="guest-field">
-        <label for="guestName${i}">Nombre Completo del Invitado ${i}</label>
-        <input class="rsvp__input" type="text" id="guestName${i}" name="guestName${i}" placeholder="Nombre y Apellido">
-      </div>
-    `;
-    guestFieldsContainer.insertAdjacentHTML('beforeend', fieldHtml);
+  // Generar campos solo para los ACOMPAÑANTES (el invitado 1 ya está)
+  const numberOfAdditionalGuests = numberOfGuests - 1;
+  if (numberOfAdditionalGuests > 0) {
+    for (let i = 1; i <= numberOfAdditionalGuests; i++) {
+      const fieldHtml = `
+        <div class="guest-field">
+          <label for="guestName${i+1}">Nombre Completo del Acompañante ${i}</label>
+          <input class="rsvp__input" type="text" id="guestName${i+1}" name="guestName${i+1}" placeholder="Nombre y Apellido">
+        </div>
+      `;
+      additionalGuestsContainer.insertAdjacentHTML('beforeend', fieldHtml);
+    }
+  } else {
+      additionalGuestsContainer.style.display = 'none'; // Oculta la sección si no hay pases extra
   }
 
-  form.addEventListener('submit', (ev) => {
+
+  form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
     
-    const isAttending = document.querySelector('input[name="attendance"]:checked').value === 'yes';
-    const formData = new FormData();
-    let allNames = [];
+    const mainGuestName = mainGuestInput.value.trim();
+    if (mainGuestName.length < 2) {
+      alert('Por favor, escribe tu nombre completo para continuar.');
+      return;
+    }
     
-    // --- CÓDIGOS DE TU GOOGLE FORM (YA INTEGRADOS) ---
-    const entryCodeConfirmacion = 'entry.169600023'; // Código para "Confirmacion"
+    const choiceRadio = document.querySelector('input[name="attendance"]:checked');
+    if (!choiceRadio) {
+      alert('Por favor, selecciona si asistirás o no.');
+      return;
+    }
+    const isAttending = choiceRadio.value === 'yes';
+    
+    const formData = new FormData();
+    let allNames = [mainGuestName];
+    
+    const entryCodeConfirmacion = 'entry.169600023';
     const googleFormEntryCodes = [
-      'entry.985292545', // Código para Invitado 1
-      'entry.333320606', // Código para Invitado 2
-      'entry.428435278', // Código para Invitado 3
-      'entry.1807326494',// Código para Invitado 4
-      'entry.1090018170' // Código para Invitado 5
+      'entry.985292545', 'entry.333320606', 'entry.428435278', 'entry.1807326494', 'entry.1090018170'
     ];
 
     let messageText = '';
+    formData.append(googleFormEntryCodes[0], mainGuestName); // Siempre registramos el invitado principal
 
     if (isAttending) {
-      // --- LÓGICA SI EL INVITADO ASISTE ---
       let allFieldsFilled = true;
-      for (let i = 1; i <= numberOfGuests; i++) {
-        const input = document.getElementById(`guestName${i}`);
+      for (let i = 1; i <= numberOfAdditionalGuests; i++) {
+        const input = document.getElementById(`guestName${i+1}`);
         const name = input.value.trim();
         if (name.length < 2) {
           allFieldsFilled = false;
           break;
         }
         allNames.push(name);
-        if (googleFormEntryCodes[i-1]) {
-          formData.append(googleFormEntryCodes[i-1], name);
+        if (googleFormEntryCodes[i]) {
+          formData.append(googleFormEntryCodes[i], name);
         }
       }
 
       if (!allFieldsFilled) {
-        alert('Por favor, completa el nombre de todos los invitados.');
+        alert('Por favor, completa el nombre de todos tus acompañantes.');
         return;
       }
 
@@ -303,22 +314,25 @@ function setupAudioPlayer() {
       });
 
     } else {
-      // --- LÓGICA SI EL INVITADO NO ASISTE ---
       formData.append(entryCodeConfirmacion, 'No asiste');
-      messageText = `Hola, con mucha pena les informo que no podremos asistir a su boda. ¡Les deseamos todo lo mejor en su gran día!`;
+      messageText = `Hola, soy ${mainGuestName}. Con mucha pena les informo que no podremos asistir a su boda. ¡Les deseamos todo lo mejor en su gran día!`;
     }
 
-    // --- Envío a Google Forms y WhatsApp ---
     const googleFormActionURL = 'https://docs.google.com/forms/d/e/1FAIpQLSeD0yBiMAofT5_5dorw3p1eS737cGqb1al8dhc56cI6BNcriA/formResponse';
-    fetch(googleFormActionURL, {
-      method: 'POST',
-      body: formData,
-      mode: 'no-cors'
-    }).catch(error => console.error('Error al enviar a Google Forms:', error));
+    try {
+        await fetch(googleFormActionURL, {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors'
+        });
+    } catch (error) {
+        console.error('Error al enviar a Google Forms:', error);
+    }
 
     const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageText)}`;
     window.open(waUrl, '_blank');
   });
 })();
+
 
 
