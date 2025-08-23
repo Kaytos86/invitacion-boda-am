@@ -800,3 +800,25 @@ a:hover { color: var(--color-gold); }
   background-color: color-mix(in srgb, var(--accent) 80%, black);
 }
 
+
+/* ===========================
+   Estilos para el Formulario de RSVP Dinámico
+   =========================== */
+#guest-fields-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.guest-field {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.guest-field label {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
