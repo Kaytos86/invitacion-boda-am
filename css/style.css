@@ -709,20 +709,38 @@ a:hover { color: var(--color-gold); }
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);      /* Sombra para darle profundidad */
 }
 
-/* Título con sombra suave para legibilidad */
+/* Título con efecto dorado */
 .hero__content--bottom .hero__title {
-  color: var(--brand-700);
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  /* 1. Definimos un gradiente como fondo */
+  background: linear-gradient(45deg, #e6c56c, #b38a2e);
+  
+  /* 2. Hacemos que el fondo solo sea visible en el texto */
+  -webkit-background-clip: text;
+  background-clip: text;
+  
+  /* 3. Ocultamos el color de la fuente para que se vea el fondo */
+  color: transparent;
+  
+  font-size: clamp(2rem, 6vw, 2.8rem);
   margin-bottom: 0.5rem;
-  text-shadow: 1px 1px 5px rgba(43, 43, 43, 0.5);
+  
+  /* 4. Sombra oscura y suave para dar profundidad y legibilidad */
+  text-shadow: 1px 1px 5px rgba(43, 43, 43, 0.6);
 }
 
-/* Fecha con sombra suave para legibilidad */
+/* Fecha con efecto dorado */
 .hero__content--bottom .hero__date strong {
-  font-size: 1.2em;
-  color: var(--accent);
+  /* Repetimos la misma técnica para la fecha */
+  background: linear-gradient(45deg, #e6c56c, #b38a2e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  
+  font-size: 1.3em;
   font-weight: 700;
-  text-shadow: 1px 1px 5px rgba(43, 43, 43, 0.4);
+  
+  /* Sombra más sutil para la fecha */
+  text-shadow: 1px 1px 3px rgba(43, 43, 43, 0.5);
 }
 
 /* Botón (sin cambios) */
@@ -740,4 +758,5 @@ a:hover { color: var(--color-gold); }
 .hero__content--bottom .hero__cta-btn:hover {
   background-color: color-mix(in srgb, var(--accent) 80%, black);
 }
+
 
