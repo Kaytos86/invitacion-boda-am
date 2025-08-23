@@ -166,67 +166,6 @@ function setupAudioPlayer() {
   });
 })();
 
-// =========== FORMULARIO RSVP DINÁMICO ==========
-(function() {
-  const form = document.getElementById('rsvpForm');
-  const guestFieldsContainer = document.getElementById('guest-fields-container');
-  const whatsappNumber = '529993572727'; // Tu número de WhatsApp
-
-  if (!form || !guestFieldsContainer) return;
-
-  // 1. Leer el número de pases de la URL
-  const urlParams = new URLSearchParams(window.location.search);
-  let numberOfGuests = parseInt(urlParams.get('pases')) || 1; // Por defecto, 1 pase si no se especifica
-  if (numberOfGuests > 10) numberOfGuests = 10; // Límite de seguridad
-
-  // 2. Crear los campos de texto para cada invitado
-  for (let i = 1; i <= numberOfGuests; i++) {
-    const fieldHtml = `
-      <div class="guest-field">
-        <label for="guestName${i}">Nombre Completo del Invitado ${i}</label>
-        <input class="rsvp__input" type="text" id="guestName${i}" name="guestName${i}" placeholder="Nombre y Apellido" required>
-      </div>
-    `;
-    guestFieldsContainer.insertAdjacentHTML('beforeend', fieldHtml);
-  }
-
-  // 3. Manejar el envío del formulario
-  form.addEventListener('submit', (ev) => {
-    ev.preventDefault();
-    
-    let allNames = [];
-    let allFieldsFilled = true;
-    
-    // 4. Recolectar todos los nombres
-    for (let i = 1; i <= numberOfGuests; i++) {
-      const input = document.getElementById(`guestName${i}`);
-      const name = input.value.trim();
-      if (name.length < 2) {
-        allFieldsFilled = false;
-        break;
-      }
-      allNames.push(name);
-    }
-
-    if (!allFieldsFilled) {
-      alert('Por favor, completa el nombre de todos los invitados.');
-      return;
-    }
-
-    // 5. Construir el mensaje de WhatsApp
-    let messageText = `¡Hola! 👋 Confirmamos nuestra asistencia a su boda.\n\nInvitados (${allNames.length}):\n`;
-    allNames.forEach((name, index) => {
-      messageText += `- ${name}\n`;
-    });
-
-    const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageText)}`;
-    
-    // (Opcional, pero recomendado) Aquí iría el código para enviar a Google Forms o Tally
-    
-    // 6. Abrir WhatsApp
-    window.open(waUrl, '_blank');
-  });
-})();
 
 // =========== CARGA DEL MAPA (sin cambios) ==========
 (function () {
@@ -352,3 +291,4 @@ function setupAudioPlayer() {
     window.open(waUrl, '_blank');
   });
 })();
+
