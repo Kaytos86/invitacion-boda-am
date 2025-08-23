@@ -872,3 +872,8 @@ a:hover { color: var(--color-gold); }
 .hidden {
   display: none !important;
 }
+
+#main-guest-container {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
