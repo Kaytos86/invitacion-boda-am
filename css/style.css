@@ -877,3 +877,12 @@ a:hover { color: var(--color-gold); }
   text-align: left;
   margin-bottom: 1.5rem;
 }
+
+/* Estilo para el número de evento de Liverpool */
+.gift-event-number {
+  margin-top: auto; /* Empuja el número hacia el botón */
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
