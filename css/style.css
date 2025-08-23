@@ -696,19 +696,17 @@ a:hover { color: var(--color-gold); }
   padding-bottom: 10vh;
 }
 
-/* Panel de cristal con sombra */
+/* Panel de cristal sin desenfoque y con sombra */
 .hero__content.hero__content--bottom {
   width: 90%;
   max-width: 550px;
   padding: 2rem;
   border-radius: 1.5rem;
   
-  /* --- AJUSTES PARA EFECTO CRISTALINO Y SOMBRA --- */
-  background: rgba(255, 255, 255, 0.1);       /* Fondo muy transparente para un look cristalino */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.25);  /* Borde de "cristal" más definido */
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);      /* Sombra más notoria para darle profundidad */
+  /* --- ESTILO CRISTALINO --- */
+  background: rgba(255, 255, 255, 0.1);       /* Fondo transparente */
+  border: 1px solid rgba(255, 255, 255, 0.25);  /* Borde sutil de cristal */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);      /* Sombra para darle profundidad */
 }
 
 /* Título con sombra suave para legibilidad */
