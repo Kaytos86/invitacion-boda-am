@@ -717,15 +717,14 @@ a:hover { color: var(--color-gold); }
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-/* Fecha con color de acento y sombra suave */
+/* Fecha con color blanco y sombra para máxima legibilidad */
 .hero__content--bottom .hero__date strong {
-  color: var(--accent); /* Color terracota de acento */
+  color: #FFFFFF; /* Cambiamos el color a blanco */
   font-size: 1.3em;
   font-weight: 700;
-  /* Sombra más suave para la fecha */
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  /* Sombra más oscura y definida para que resalte */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
-
 /* Botón (sin cambios) */
 .hero__content--bottom .hero__cta-btn {
   background-color: var(--accent);
@@ -741,4 +740,5 @@ a:hover { color: var(--color-gold); }
 .hero__content--bottom .hero__cta-btn:hover {
   background-color: color-mix(in srgb, var(--accent) 80%, black);
 }
+
 
