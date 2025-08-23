@@ -200,8 +200,6 @@ a:hover { color: var(--color-gold); }
   box-shadow: 0 4px 28px rgba(191,161,78,0.09);
   padding: 2.7rem 1.1rem;
   max-width: 1100px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -744,3 +742,4 @@ a:hover { color: var(--color-gold); }
 .hero__content--bottom .hero__cta-btn:hover {
   background-color: color-mix(in srgb, var(--accent) 80%, black);
 }
+
