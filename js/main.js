@@ -166,19 +166,64 @@ function setupAudioPlayer() {
   });
 })();
 
-// =========== FORMULARIO RSVP (sin cambios) ==========
-(function(){
+// =========== FORMULARIO RSVP DINÁMICO ==========
+(function() {
   const form = document.getElementById('rsvpForm');
-  if (!form) return;
-  form.addEventListener('submit', (ev)=>{
+  const guestFieldsContainer = document.getElementById('guest-fields-container');
+  const whatsappNumber = '529993572727'; // Tu número de WhatsApp
+
+  if (!form || !guestFieldsContainer) return;
+
+  // 1. Leer el número de pases de la URL
+  const urlParams = new URLSearchParams(window.location.search);
+  let numberOfGuests = parseInt(urlParams.get('pases')) || 1; // Por defecto, 1 pase si no se especifica
+  if (numberOfGuests > 10) numberOfGuests = 10; // Límite de seguridad
+
+  // 2. Crear los campos de texto para cada invitado
+  for (let i = 1; i <= numberOfGuests; i++) {
+    const fieldHtml = `
+      <div class="guest-field">
+        <label for="guestName${i}">Nombre Completo del Invitado ${i}</label>
+        <input class="rsvp__input" type="text" id="guestName${i}" name="guestName${i}" placeholder="Nombre y Apellido" required>
+      </div>
+    `;
+    guestFieldsContainer.insertAdjacentHTML('beforeend', fieldHtml);
+  }
+
+  // 3. Manejar el envío del formulario
+  form.addEventListener('submit', (ev) => {
     ev.preventDefault();
-    const name = form.querySelector('#guestName')?.value.trim();
-    if (name.length < 2){
-      alert('Por favor, ingresa tu nombre.');
+    
+    let allNames = [];
+    let allFieldsFilled = true;
+    
+    // 4. Recolectar todos los nombres
+    for (let i = 1; i <= numberOfGuests; i++) {
+      const input = document.getElementById(`guestName${i}`);
+      const name = input.value.trim();
+      if (name.length < 2) {
+        allFieldsFilled = false;
+        break;
+      }
+      allNames.push(name);
+    }
+
+    if (!allFieldsFilled) {
+      alert('Por favor, completa el nombre de todos los invitados.');
       return;
     }
-    const encoded = encodeURIComponent(`Hola, soy ${name}. Confirmo mi asistencia a la boda.`);
-    const waUrl = `https://wa.me/${form.dataset.wa || whatsappNumber}?text=${encoded}`;
+
+    // 5. Construir el mensaje de WhatsApp
+    let messageText = `¡Hola! 👋 Confirmamos nuestra asistencia a su boda.\n\nInvitados (${allNames.length}):\n`;
+    allNames.forEach((name, index) => {
+      messageText += `- ${name}\n`;
+    });
+
+    const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageText)}`;
+    
+    // (Opcional, pero recomendado) Aquí iría el código para enviar a Google Forms o Tally
+    
+    // 6. Abrir WhatsApp
     window.open(waUrl, '_blank');
   });
 })();
@@ -226,5 +271,84 @@ function setupAudioPlayer() {
         alert('La función de copiar no está disponible en conexiones no seguras (HTTP).');
       }
     });
+  });
+})();
+
+// =========== FORMULARIO RSVP DINÁMICO (CONECTADO A GOOGLE FORMS) ==========
+(function() {
+  const form = document.getElementById('rsvpForm');
+  const guestFieldsContainer = document.getElementById('guest-fields-container');
+  const whatsappNumber = '529993572727'; // Tu número de WhatsApp
+
+  if (!form || !guestFieldsContainer) return;
+
+  // 1. Leer el número de pases de la URL
+  const urlParams = new URLSearchParams(window.location.search);
+  let numberOfGuests = parseInt(urlParams.get('pases')) || 1; // Por defecto, 1 pase
+  if (numberOfGuests > 10) numberOfGuests = 10; // Límite de seguridad
+
+  // 2. Crear los campos de texto para cada invitado
+  for (let i = 1; i <= numberOfGuests; i++) {
+    const fieldHtml = `
+      <div class="guest-field">
+        <label for="guestName${i}">Nombre Completo del Invitado ${i}</label>
+        <input class="rsvp__input" type="text" id="guestName${i}" name="guestName${i}" placeholder="Nombre y Apellido" required>
+      </div>
+    `;
+    guestFieldsContainer.insertAdjacentHTML('beforeend', fieldHtml);
+  }
+
+  // 3. Manejar el envío del formulario
+  form.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    
+    let allNames = [];
+    let allFieldsFilled = true;
+    const formData = new FormData();
+    
+    // --- Códigos de tu Google Form (YA INTEGRADOS) ---
+    const googleFormEntryCodes = [
+      'entry.985292545', // Campo Invitado 1
+      'entry.333320606', // Campo Invitado 2
+      'entry.428435278', // Campo Invitado 3
+      'entry.1807326494',// Campo Invitado 4
+      'entry.1090018170' // Campo Invitado 5
+    ];
+
+    for (let i = 1; i <= numberOfGuests; i++) {
+      const input = document.getElementById(`guestName${i}`);
+      const name = input.value.trim();
+      if (name.length < 2) {
+        allFieldsFilled = false;
+        break;
+      }
+      allNames.push(name);
+      if (googleFormEntryCodes[i-1]) {
+        formData.append(googleFormEntryCodes[i-1], name);
+      }
+    }
+
+    if (!allFieldsFilled) {
+      alert('Por favor, completa el nombre de todos los invitados.');
+      return;
+    }
+
+    // --- Envío silencioso a Google Forms (YA INTEGRADO) ---
+    const googleFormActionURL = 'https://docs.google.com/forms/d/e/1FAIpQLSeD0yBiMAofT5_5dorw3p1eS737cGqb1al8dhc56cI6BNcriA/formResponse';
+    fetch(googleFormActionURL, {
+      method: 'POST',
+      body: formData,
+      mode: 'no-cors'
+    }).catch(error => console.error('Error al enviar a Google Forms:', error));
+
+    // --- Construcción del mensaje de WhatsApp ---
+    let messageText = `¡Hola! 👋 Confirmamos nuestra asistencia a su boda.\n\nInvitados (${allNames.length}):\n`;
+    allNames.forEach((name) => {
+      messageText += `- ${name}\n`;
+    });
+    const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageText)}`;
+    
+    // Abrir WhatsApp
+    window.open(waUrl, '_blank');
   });
 })();
