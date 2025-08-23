@@ -707,24 +707,36 @@ a:hover { color: var(--color-gold); }
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-/* Título con efecto dorado y sombra de relieve */
+
+/* --- OPCIÓN 3: EFECTO NEÓN SUAVE --- */
+
+/* Título con brillo de neón */
 .hero__content--bottom .hero__title {
-  color: #D4AF37; /* Color dorado principal */
+  color: #FFFFFF; /* El centro de la letra es blanco puro */
   font-size: clamp(2rem, 6vw, 2.8rem);
   margin-bottom: 0.5rem;
   font-weight: 700;
-  /* Sombra para dar un efecto de relieve y separarlo del fondo */
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  /* Múltiples sombras de color terracota, cada vez más difusas */
+  text-shadow: 
+    0 0 5px #fff,
+    0 0 10px var(--accent),
+    0 0 20px var(--accent);
 }
 
-/* Fecha con color blanco y sombra para máxima legibilidad */
 .hero__content--bottom .hero__date strong {
-  color: #FFFFFF; /* Cambiamos el color a blanco */
-  font-size: 1.3em;
-  font-weight: 700;
-  /* Sombra más oscura y definida para que resalte */
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  font-family:  var(--ff-body);
+  font-weight: 200;
+  color: #FFFFFF;
+  font-size: 1.2em;
+  /* Efecto neón corregido */
+  text-shadow: 
+    0 0 5px #fff,
+    0 0 10px var(--accent);
 }
+
+
+
+
 /* Botón (sin cambios) */
 .hero__content--bottom .hero__cta-btn {
   background-color: var(--accent);
@@ -740,5 +752,4 @@ a:hover { color: var(--color-gold); }
 .hero__content--bottom .hero__cta-btn:hover {
   background-color: color-mix(in srgb, var(--accent) 80%, black);
 }
-
 
