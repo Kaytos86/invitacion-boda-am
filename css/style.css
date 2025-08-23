@@ -608,13 +608,60 @@ a:hover { color: var(--color-gold); }
   margin: 0 auto 2rem auto;
 }
 
-/* En style.css */
+/* ===========================
+   Estilos CORREGIDOS para el Itinerario de Ubicación
+   =========================== */
+
+/* Estilo para cada fila de evento (Ceremonia, Recepción) */
 .timeline-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem; /* <-- Añade esta línea para dar más espacio */
+  gap: 1.5rem; /* Aumentamos un poco el espacio base */
+  flex-wrap: wrap; /* Permitimos que los elementos se reordenen */
+  margin-bottom: 1.5rem;
+}
+
+/* Estilo para el título del evento (sin cambios) */
+.timeline-title {
+  font-family: var(--ff-display);
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* Estilo para la hora del evento */
+.timeline-time {
+  margin-left: auto; /* <-- ESTE ES EL TRUCO: Empuja la hora a la derecha */
+  padding-left: 1rem; /* Asegura un espacio mínimo con el texto */
+}
+
+.timeline-time p {
+  font-family: var(--ff-display);
+  font-size: 1.2rem;
+  color: var(--accent);
+  margin: 0;
+  font-weight: 700;
+  white-space: nowrap; /* Evita que "08:00 PM" se parta en dos líneas */
+}
+
+/* --- ESTILOS PARA CELULAR (pantallas de 480px o menos) --- */
+@media (max-width: 480px) {
+  .timeline-item {
+    gap: 1rem; /* Reducimos el espacio en móvil */
+  }
+
+  .timeline-content {
+    flex-grow: 1; /* Permite que el texto ocupe el espacio disponible */
+  }
+
+  .timeline-time {
+    margin-left: 0; /* Quitamos el margen automático */
+    flex-basis: 100%; /* Hacemos que la hora ocupe toda una nueva línea */
+    text-align: right; /* Alineamos la hora a la derecha en su nueva línea */
+    margin-top: -0.75rem; /* Acercamos la hora un poco hacia arriba */
+  }
 }
 
 /* Estilo para tus iconos personalizados */
