@@ -443,6 +443,11 @@
   
   <form id="rsvpForm" class="rsvp__form" novalidate>
     
+    <div id="main-guest-container" class="guest-field">
+      <label for="mainGuestName">Tu Nombre Completo</label>
+      <input class="rsvp__input" type="text" id="mainGuestName" name="mainGuestName" placeholder="Escribe tu nombre y apellido" required>
+    </div>
+
     <div class="rsvp-choice-container">
       <p>¿Nos acompañarás en nuestro gran día?</p>
       <div class="rsvp-buttons">
@@ -454,8 +459,8 @@
       </div>
     </div>
 
-    <div id="guest-fields-container" class="hidden">
-      <p class="guest-fields-title">Por favor, escribe el nombre de los invitados:</p>
+    <div id="additional-guests-container" class="hidden">
+      <p class="guest-fields-title">Por favor, escribe el nombre de tus acompañantes:</p>
     </div>
     
     <button class="rsvp__button hidden" type="submit" id="submitRsvpBtn">
@@ -487,6 +492,7 @@
   <script src="js/main.js"></script>
 </body>
 </html>
+
 
 
 
