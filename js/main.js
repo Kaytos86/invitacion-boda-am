@@ -334,6 +334,30 @@ function setupAudioPlayer() {
   });
 })();
 
+// =========== ACTUALIZAR NÚMERO DE PASES EN SECCIÓN "HISTORIA" ==========
+document.addEventListener('DOMContentLoaded', function() {
+  const passCountElement = document.getElementById('pass-count');
+  const passLabelElement = document.getElementById('pass-label');
+
+  if (passCountElement && passLabelElement) {
+    // 1. Lee el parámetro 'pases' de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    let numberOfGuests = parseInt(urlParams.get('pases'));
+
+    // 2. Si no hay parámetro en la URL, no hace nada y deja el texto original.
+    if (!isNaN(numberOfGuests) && numberOfGuests > 0) {
+      // 3. Actualiza el número en el HTML
+      passCountElement.textContent = numberOfGuests;
+
+      // 4. Cambia 'persona' o 'personas' según el número
+      if (numberOfGuests === 1) {
+        passLabelElement.textContent = 'persona';
+      } else {
+        passLabelElement.textContent = 'personas';
+      }
+    }
+  }
+});
 
 
 
