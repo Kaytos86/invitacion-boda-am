@@ -687,7 +687,7 @@ a:hover { color: var(--color-gold); }
 }
 
 /* ===========================
-   Estilos FINALES para la Portada (Elegante y Legible)
+   Estilos FINALES para la Portada (Cristalino y con Sombra)
    =========================== */
 
 /* Ajuste al contenedor principal para empujar el contenido hacia abajo */
@@ -698,35 +698,34 @@ a:hover { color: var(--color-gold); }
   padding-bottom: 10vh;
 }
 
-/* Panel de cristal refinado */
+/* Panel de cristal con sombra */
 .hero__content.hero__content--bottom {
   width: 90%;
   max-width: 550px;
   padding: 2rem;
   border-radius: 1.5rem;
-  /* Fondo un poco más opaco y con más desenfoque para mejor lectura */
-  background: rgba(255, 255, 255, 0.25);
+  
+  /* --- AJUSTES PARA EFECTO CRISTALINO Y SOMBRA --- */
+  background: rgba(255, 255, 255, 0.1);       /* Fondo muy transparente para un look cristalino */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);  /* Borde de "cristal" más definido */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);      /* Sombra más notoria para darle profundidad */
 }
 
-/* Título con sombra suave */
+/* Título con sombra suave para legibilidad */
 .hero__content--bottom .hero__title {
-  color: var(--brand-700); /* Mantenemos el color café oscuro */
+  color: var(--brand-700);
   font-size: clamp(1.8rem, 5vw, 2.5rem);
   margin-bottom: 0.5rem;
-  /* Sombra suave para dar profundidad y legibilidad */
   text-shadow: 1px 1px 5px rgba(43, 43, 43, 0.5);
 }
 
-/* Fecha con sombra suave */
+/* Fecha con sombra suave para legibilidad */
 .hero__content--bottom .hero__date strong {
   font-size: 1.2em;
-  color: var(--accent); /* Mantenemos el color de acento */
+  color: var(--accent);
   font-weight: 700;
-  /* Sombra suave para dar profundidad y legibilidad */
   text-shadow: 1px 1px 5px rgba(43, 43, 43, 0.4);
 }
 
