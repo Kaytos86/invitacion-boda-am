@@ -600,5 +600,89 @@ a:hover { color: var(--color-gold); }
   background: color-mix(in oklab, var(--accent) 86%, black);
 }
 
+/* ===========================
+   Estilos para la Sección "Ubicación" con Itinerario
+   =========================== */
+
+/* Contenedor principal del itinerario */
+.location-timeline {
+  max-width: 500px;
+  margin: 0 auto 2rem auto;
+}
+
+/* Estilo para cada fila de evento (Ceremonia, Recepción) */
+.timeline-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Estilo para tus iconos personalizados */
+.timeline-icon img {
+  width: 60px; /* Ajusta el tamaño de tus iconos aquí */
+  height: 60px;
+  /* El filtro de color si tus iconos son negros */
+  filter: invert(47%) sepia(21%) saturate(2371%) hue-rotate(331deg) brightness(91%) contrast(85%);
+}
+
+/* Estilo para el título del evento */
+.timeline-title {
+  font-family: var(--ff-display);
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* Estilo para la hora del evento */
+.timeline-time p {
+  font-family: var(--ff-display);
+  font-size: 1.2rem;
+  color: var(--accent);
+  margin: 0;
+  font-weight: 700;
+}
+
+/* Divisor decorativo (línea-diamante-línea) */
+.timeline-divider {
+  text-align: center;
+  margin: 1rem 0;
+}
+.timeline-divider span {
+  display: inline-block;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  transform: rotate(45deg);
+  background: var(--color-gold-light);
+}
+.timeline-divider span::before,
+.timeline-divider span::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100px;
+  height: 1px;
+  background: var(--color-gold-light);
+}
+.timeline-divider span::before {
+  right: 150%;
+}
+.timeline-divider span::after {
+  left: 150%;
+}
+
+/* Estilo para el nombre del lugar */
+.location-name {
+  font-family: var(--font-script);
+  font-size: 2.2rem;
+  color: var(--accent);
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
 
 
