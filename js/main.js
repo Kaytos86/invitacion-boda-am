@@ -213,39 +213,42 @@ function setupAudioPlayer() {
   });
 })();
 
-// =========== FORMULARIO RSVP DINÁMICO (VERSIÓN CORREGIDA SÍ/NO) ==========
+// =========== FORMULARIO RSVP DINÁMICO (ORDEN CORREGIDO) ==========
 (function() {
   const form = document.getElementById('rsvpForm');
   if (!form) return;
 
-  const mainGuestInput = document.getElementById('mainGuestName');
+  const mainGuestContainer = document.getElementById('main-guest-container');
   const additionalGuestsContainer = document.getElementById('additional-guests-container');
   const submitButton = document.getElementById('submitRsvpBtn');
   const rsvpChoiceContainer = document.querySelector('.rsvp-choice-container');
   const whatsappNumber = '529991631771';
 
-  // Ocultar campos de acompañantes y botón de envío al inicio
+  // Ocultar campos de nombre y botón de envío al inicio
+  mainGuestContainer.classList.add('hidden');
   additionalGuestsContainer.classList.add('hidden');
   submitButton.classList.add('hidden');
 
   // Lógica para mostrar/ocultar campos al elegir Sí/No
   rsvpChoiceContainer.addEventListener('change', (event) => {
     const choice = event.target.value;
+    mainGuestContainer.classList.remove('hidden'); // Siempre mostramos el campo del nombre principal
+    submitButton.classList.remove('hidden');
+
     if (choice === 'yes') {
       additionalGuestsContainer.classList.remove('hidden');
-      submitButton.classList.remove('hidden');
     } else if (choice === 'no') {
       additionalGuestsContainer.classList.add('hidden');
-      submitButton.classList.remove('hidden');
     }
   });
 
   const urlParams = new URLSearchParams(window.location.search);
   let numberOfGuests = parseInt(urlParams.get('pases')) || 1;
   
-  // Generar campos solo para los ACOMPAÑANTES (el invitado 1 ya está)
   const numberOfAdditionalGuests = numberOfGuests - 1;
   if (numberOfAdditionalGuests > 0) {
+    // Limpiamos antes de añadir para evitar duplicados
+    additionalGuestsContainer.innerHTML = '<p class="guest-fields-title">Por favor, escribe el nombre de tus acompañantes:</p>';
     for (let i = 1; i <= numberOfAdditionalGuests; i++) {
       const fieldHtml = `
         <div class="guest-field">
@@ -256,13 +259,14 @@ function setupAudioPlayer() {
       additionalGuestsContainer.insertAdjacentHTML('beforeend', fieldHtml);
     }
   } else {
-      additionalGuestsContainer.style.display = 'none'; // Oculta la sección si no hay pases extra
+      additionalGuestsContainer.style.display = 'none';
   }
 
 
   form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
     
+    const mainGuestInput = document.getElementById('mainGuestName');
     const mainGuestName = mainGuestInput.value.trim();
     if (mainGuestName.length < 2) {
       alert('Por favor, escribe tu nombre completo para continuar.');
@@ -285,7 +289,7 @@ function setupAudioPlayer() {
     ];
 
     let messageText = '';
-    formData.append(googleFormEntryCodes[0], mainGuestName); // Siempre registramos el invitado principal
+    formData.append(googleFormEntryCodes[0], mainGuestName);
 
     if (isAttending) {
       let allFieldsFilled = true;
@@ -302,7 +306,7 @@ function setupAudioPlayer() {
         }
       }
 
-      if (!allFieldsFilled) {
+      if (numberOfAdditionalGuests > 0 && !allFieldsFilled) {
         alert('Por favor, completa el nombre de todos tus acompañantes.');
         return;
       }
@@ -358,6 +362,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
+
 
 
 
