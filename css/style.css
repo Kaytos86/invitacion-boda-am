@@ -934,6 +934,28 @@ display: block; /* Fuerza la etiqueta a una nueva línea */
   color: var(--color-text);
 }
 
+/* --- ESTILOS PARA CELULAR (pantallas de 480px o menos) --- */
+@media (max-width: 480px) {
+
+  /* --- NUEVO LAYOUT PARA ITINERARIO EN CELULAR --- */
+  .timeline-item {
+    flex-direction: column; /* Apila los elementos verticalmente */
+    gap: 0.5rem;           /* Reduce el espacio entre ellos */
+    margin-bottom: 2rem;   /* Espacio extra entre Ceremonia y Recepción */
+  }
+
+  /* Reseteamos los estilos que ya no aplican en móvil */
+  .timeline-time {
+    margin-left: 0;      /* Quitamos el margen que lo empujaba a la derecha */
+    padding-left: 0;
+    text-align: center;  /* Centramos la hora */
+  }
+
+  .timeline-content {
+    flex-grow: 0; /* Reseteamos esta propiedad */
+  }
+  
+}
 
 
 
