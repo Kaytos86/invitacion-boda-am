@@ -508,6 +508,28 @@ a:hover { color: var(--color-gold); }
   .gifts.section-glass {
     padding: 2rem 1rem;
   }
+   /* --- ESTILOS PARA CELULAR (pantallas de 480px o menos) --- /
+@media (max-width: 480px) {
+/ ... otros estilos para celular que ya tengas ... */
+
+.story__highlight {
+white-space: pre-line; /* Permite saltos de línea con <br> */
+}
+
+#pass-label {
+display: block; /* Hace que "persona" o "personas" salgan en una línea nueva */
+}
+
+#pass-count,
+#pass-label {
+font-weight: bold; /* Pone en negrita el número y la palabra /
+display: inline; / Para que el número esté junto a la palabra en la misma línea inicialmente */
+}
+
+#pass-label {
+display: block; /* Fuerza la etiqueta a una nueva línea */
+}
+}
 }
 
 /* TRUCO PARA CENTRAR EL ÚLTIMO ELEMENTO */
@@ -911,6 +933,7 @@ a:hover { color: var(--color-gold); }
   font-size: 0.9rem;
   color: var(--color-text);
 }
+
 
 
 
