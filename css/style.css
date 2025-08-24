@@ -484,8 +484,9 @@ a:hover { color: var(--color-gold); }
 
 /* Renombramos la clase para evitar conflictos */
 .gifts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;           /* Cambiamos a Flexbox */
+  flex-wrap: wrap;         /* Permitimos que los elementos bajen de línea */
+  justify-content: center; /* ¡La clave para centrar todo! */
   gap: 2rem;
   margin-top: 2.5rem;
 }
@@ -885,4 +886,5 @@ a:hover { color: var(--color-gold); }
   font-size: 0.9rem;
   color: var(--color-text);
 }
+
 
