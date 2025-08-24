@@ -894,14 +894,21 @@ a:hover { color: var(--color-gold); }
 
 /* --- ESTILOS PARA CELULAR (pantallas de 480px o menos) --- */
 @media (max-width: 480px) {
-  .gifts-grid {
-    /* Forzamos a que solo haya una columna en pantallas pequeñas */
-    grid-template-columns: 1fr;
-  }
-
-  /* También reducimos el padding de la sección para dar más espacio */
-  .gifts.section-glass {
-    padding: 2rem 1rem;
-  }
+.gifts-grid {
+/ Forzamos a que solo haya una columna */
+grid-template-columns: 1fr;
 }
+
+/* Aseguramos que cada bloque ocupe el ancho completo */
+.gift-block {
+width: 100%;
+margin-bottom: 1rem; / Añadimos un poco de espacio entre bloques */
+}
+
+/* También reducimos el padding de la sección */
+.gifts.section-glass {
+padding: 2rem 1rem;
+}
+}
+
 
