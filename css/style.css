@@ -957,6 +957,14 @@ display: block; /* Fuerza la etiqueta a una nueva línea */
   
 }
 
+.rsvp-personal-message {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 450px;
+  margin: 0 auto 1.5rem auto; /* Centra el bloque y le da espacio abajo */
+}
 
 
 
