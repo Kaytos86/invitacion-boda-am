@@ -213,7 +213,7 @@ function setupAudioPlayer() {
   });
 })();
 
-// =========== FORMULARIO RSVP DINÁMICO (ORDEN CORREGIDO) ==========
+// =========== FORMULARIO RSVP DINÁMICO (MENSAJE DINÁMICO) ==========
 (function() {
   const form = document.getElementById('rsvpForm');
   if (!form) return;
@@ -222,17 +222,15 @@ function setupAudioPlayer() {
   const additionalGuestsContainer = document.getElementById('additional-guests-container');
   const submitButton = document.getElementById('submitRsvpBtn');
   const rsvpChoiceContainer = document.querySelector('.rsvp-choice-container');
-  const whatsappNumber = '529991631771'; // Definido aquí localmente o puedes usar la variable global
+  const whatsappNumber = '529991631771';
 
-  // Ocultar campos de nombre y botón de envío al inicio
   mainGuestContainer.classList.add('hidden');
   additionalGuestsContainer.classList.add('hidden');
   submitButton.classList.add('hidden');
 
-  // Lógica para mostrar/ocultar campos al elegir Sí/No
   rsvpChoiceContainer.addEventListener('change', (event) => {
     const choice = event.target.value;
-    mainGuestContainer.classList.remove('hidden'); // Siempre mostramos el campo del nombre principal
+    mainGuestContainer.classList.remove('hidden');
     submitButton.classList.remove('hidden');
 
     if (choice === 'yes') {
@@ -247,7 +245,6 @@ function setupAudioPlayer() {
   
   const numberOfAdditionalGuests = numberOfGuests - 1;
   if (numberOfAdditionalGuests > 0) {
-    // Limpiamos antes de añadir para evitar duplicados
     additionalGuestsContainer.innerHTML = '<p class="guest-fields-title">Por favor, escribe el nombre de tus acompañantes:</p>';
     for (let i = 1; i <= numberOfAdditionalGuests; i++) {
       const fieldHtml = `
@@ -312,10 +309,19 @@ function setupAudioPlayer() {
       }
 
       formData.append(entryCodeConfirmacion, 'Sí asiste');
-      messageText = `¡Hola! 👋 Confirmamos nuestra asistencia a su boda.\n\nInvitados (${allNames.length}):\n`;
-      allNames.forEach((name) => {
-        messageText += `- ${name}\n`;
-      });
+      
+      // --- LÓGICA DE MENSAJE DINÁMICO (AQUÍ ESTÁ EL CAMBIO) ---
+      messageText = '¡Hola! 👋 ';
+      if (allNames.length === 1) {
+        // Mensaje para 1 persona
+        messageText += `Confirmo mi asistencia a su boda.\n\nInvitado:\n- ${allNames[0]}`;
+      } else {
+        // Mensaje para 2 o más personas
+        messageText += `Confirmamos nuestra asistencia a su boda.\n\nInvitados (${allNames.length}):\n`;
+        allNames.forEach((name) => {
+          messageText += `- ${name}\n`;
+        });
+      }
 
     } else {
       formData.append(entryCodeConfirmacion, 'No asiste');
@@ -362,3 +368,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
+
