@@ -363,6 +363,131 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+// =========== FORMULARIO RSVP DINÁMICO (ORDEN CORREGIDO) ==========
+(function() {
+  const form = document.getElementById('rsvpForm');
+  if (!form) return;
+
+  const mainGuestContainer = document.getElementById('main-guest-container');
+  const additionalGuestsContainer = document.getElementById('additional-guests-container');
+  const submitButton = document.getElementById('submitRsvpBtn');
+  const rsvpChoiceContainer = document.querySelector('.rsvp-choice-container');
+  const whatsappNumber = '529991631771';
+
+  // Ocultar campos de nombre y botón de envío al inicio
+  mainGuestContainer.classList.add('hidden');
+  additionalGuestsContainer.classList.add('hidden');
+  submitButton.classList.add('hidden');
+
+  // Lógica para mostrar/ocultar campos al elegir Sí/No
+  rsvpChoiceContainer.addEventListener('change', (event) => {
+    const choice = event.target.value;
+    mainGuestContainer.classList.remove('hidden'); // Siempre mostramos el campo del nombre principal
+    submitButton.classList.remove('hidden');
+
+    if (choice === 'yes') {
+      additionalGuestsContainer.classList.remove('hidden');
+    } else if (choice === 'no') {
+      additionalGuestsContainer.classList.add('hidden');
+    }
+  });
+
+  const urlParams = new URLSearchParams(window.location.search);
+  let numberOfGuests = parseInt(urlParams.get('pases')) || 1;
+  
+  const numberOfAdditionalGuests = numberOfGuests - 1;
+  if (numberOfAdditionalGuests > 0) {
+    // Limpiamos antes de añadir para evitar duplicados
+    additionalGuestsContainer.innerHTML = '<p class="guest-fields-title">Por favor, escribe el nombre de tus acompañantes:</p>';
+    for (let i = 1; i <= numberOfAdditionalGuests; i++) {
+      const fieldHtml = `
+        <div class="guest-field">
+          <label for="guestName${i+1}">Nombre Completo del Acompañante ${i}</label>
+          <input class="rsvp__input" type="text" id="guestName${i+1}" name="guestName${i+1}" placeholder="Nombre y Apellido">
+        </div>
+      `;
+      additionalGuestsContainer.insertAdjacentHTML('beforeend', fieldHtml);
+    }
+  } else {
+      additionalGuestsContainer.style.display = 'none';
+  }
+
+
+  form.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    
+    const mainGuestInput = document.getElementById('mainGuestName');
+    const mainGuestName = mainGuestInput.value.trim();
+    if (mainGuestName.length < 2) {
+      alert('Por favor, escribe tu nombre completo para continuar.');
+      return;
+    }
+    
+    const choiceRadio = document.querySelector('input[name="attendance"]:checked');
+    if (!choiceRadio) {
+      alert('Por favor, selecciona si asistirás o no.');
+      return;
+    }
+    const isAttending = choiceRadio.value === 'yes';
+    
+    const formData = new FormData();
+    let allNames = [mainGuestName];
+    
+    const entryCodeConfirmacion = 'entry.169600023';
+    const googleFormEntryCodes = [
+      'entry.985292545', 'entry.333320606', 'entry.428435278', 'entry.1807326494', 'entry.1090018170'
+    ];
+
+    let messageText = '';
+    formData.append(googleFormEntryCodes[0], mainGuestName);
+
+    if (isAttending) {
+      let allFieldsFilled = true;
+      for (let i = 1; i <= numberOfAdditionalGuests; i++) {
+        const input = document.getElementById(`guestName${i+1}`);
+        const name = input.value.trim();
+        if (name.length < 2) {
+          allFieldsFilled = false;
+          break;
+        }
+        allNames.push(name);
+        if (googleFormEntryCodes[i]) {
+          formData.append(googleFormEntryCodes[i], name);
+        }
+      }
+
+      if (numberOfAdditionalGuests > 0 && !allFieldsFilled) {
+        alert('Por favor, completa el nombre de todos tus acompañantes.');
+        return;
+      }
+
+      formData.append(entryCodeConfirmacion, 'Sí asiste');
+      messageText = `¡Hola! 👋 Confirmamos nuestra asistencia a su boda.\n\nInvitados (${allNames.length}):\n`;
+      allNames.forEach((name) => {
+        messageText += `- ${name}\n`;
+      });
+
+    } else {
+      formData.append(entryCodeConfirmacion, 'No asiste');
+      messageText = `Hola, soy ${mainGuestName}. Con mucha pena les informo que no podremos asistir a su boda. ¡Les deseamos todo lo mejor en su gran día!`;
+    }
+
+    const googleFormActionURL = 'https://docs.google.com/forms/d/e/1FAIpQLSeD0yBiMAofT5_5dorw3p1eS737cGqb1al8dhc56cI6BNcriA/formResponse';
+    try {
+        await fetch(googleFormActionURL, {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors'
+        });
+    } catch (error) {
+        console.error('Error al enviar a Google Forms:', error);
+    }
+
+    const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageText)}`;
+    window.open(waUrl, '_blank');
+  });
+})();
+
 
 
 
