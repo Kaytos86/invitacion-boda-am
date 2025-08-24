@@ -484,11 +484,17 @@ a:hover { color: var(--color-gold); }
 
 /* Renombramos la clase para evitar conflictos */
 .gifts-grid {
-  display: flex;           /* Cambiamos a Flexbox */
-  flex-wrap: wrap;         /* Permitimos que los elementos bajen de línea */
-  justify-content: center; /* ¡La clave para centrar todo! */
+  display: grid;
+  /* Define una cuadrícula flexible que intenta crear columnas de 300px */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   margin-top: 2.5rem;
+}
+
+/* TRUCO PARA CENTRAR EL ÚLTIMO ELEMENTO */
+/* Selecciona el último cuadro solo si es el primero en una nueva fila */
+.gift-block:last-child:nth-child(3n + 1) {
+  grid-column: 2; /* Lo mueve a la segunda columna para centrarlo */
 }
 
 /* Estilo de cada tarjeta de regalo */
@@ -886,5 +892,6 @@ a:hover { color: var(--color-gold); }
   font-size: 0.9rem;
   color: var(--color-text);
 }
+
 
 
