@@ -482,12 +482,10 @@ a:hover { color: var(--color-gold); }
    Estilos Mejorados para la Sección "Regalos"
    =========================== */
 
-/* Renombramos la clase para evitar conflictos */
 .gifts-grid {
   display: grid;
-  /* Define una cuadrícula flexible que intenta crear columnas de 300px */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Reducimos el ancho mínimo de las tarjetas */
+  gap: 1.5rem;
   margin-top: 2.5rem;
 }
 
@@ -894,4 +892,16 @@ a:hover { color: var(--color-gold); }
 }
 
 
+/* --- ESTILOS PARA CELULAR (pantallas de 480px o menos) --- */
+@media (max-width: 480px) {
+  .gifts-grid {
+    /* Forzamos a que solo haya una columna en pantallas pequeñas */
+    grid-template-columns: 1fr;
+  }
+
+  /* También reducimos el padding de la sección para dar más espacio */
+  .gifts.section-glass {
+    padding: 2rem 1rem;
+  }
+}
 
