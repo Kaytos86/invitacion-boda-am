@@ -482,11 +482,32 @@ a:hover { color: var(--color-gold); }
    Estilos Mejorados para la Sección "Regalos"
    =========================== */
 
+/* ===========================
+   Estilos Corregidos y Responsivos para la Sección de Obsequios
+   =========================== */
+
+/* Usamos Flexbox para un mejor control del centrado y el ajuste en móvil */
 .gifts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Reducimos el ancho mínimo de las tarjetas */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.5rem;
   margin-top: 2.5rem;
+}
+
+/* Le damos un tamaño base a cada tarjeta para que se distribuyan correctamente */
+.gift-block {
+  flex: 1 1 300px; /* Crece, se encoge, con una base de 300px */
+  max-width: 350px; /* Evita que se estiren demasiado en pantallas anchas */
+  /* El resto de tus estilos para .gift-block (fondo, borde, etc.) se mantienen */
+}
+
+/* --- ESTILOS PARA CELULAR (pantallas de 480px o menos) --- */
+@media (max-width: 480px) {
+  /* Reducimos el padding de la sección para dar más espacio a las tarjetas */
+  .gifts.section-glass {
+    padding: 2rem 1rem;
+  }
 }
 
 /* TRUCO PARA CENTRAR EL ÚLTIMO ELEMENTO */
@@ -892,23 +913,7 @@ a:hover { color: var(--color-gold); }
 }
 
 
-/* --- ESTILOS PARA CELULAR (pantallas de 480px o menos) --- */
-@media (max-width: 480px) {
-.gifts-grid {
-/ Forzamos a que solo haya una columna */
-grid-template-columns: 1fr;
-}
 
-/* Aseguramos que cada bloque ocupe el ancho completo */
-.gift-block {
-width: 100%;
-margin-bottom: 1rem; / Añadimos un poco de espacio entre bloques */
-}
 
-/* También reducimos el padding de la sección */
-.gifts.section-glass {
-padding: 2rem 1rem;
-}
-}
 
 
